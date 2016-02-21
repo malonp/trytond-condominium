@@ -1,0 +1,285 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+
+msgctxt "field:company.company,is_Condominium:"
+msgid "Codominium"
+msgstr "Com. de Propietarios"
+
+msgctxt "field:company.company,condo_units:"
+msgid "Units/Apartments"
+msgstr "Inmuebles"
+
+msgctxt "field:company.company,condo_factors:"
+msgid "Factors"
+msgstr "Coeficientes"
+
+msgctxt "help:company.company,is_Condominium:"
+msgid "Check if this company is a condominium"
+msgstr "Seleccionar si se trata de una Comunidad de Propietarios"
+
+
+msgctxt "field:condo.factor,company:"
+msgid "Condominium"
+msgstr "Com. de Propietarios"
+
+msgctxt "field:condo.factor,name:"
+msgid "Factor"
+msgstr "Coeficiente"
+
+msgctxt "field:condo.factor,total:"
+msgid "Total"
+msgstr "Total"
+
+msgctxt "field:condo.factor,notes:"
+msgid "Description"
+msgstr "Descripción"
+
+msgctxt "help:condo.factor,name:"
+msgid "Short name for this parameter"
+msgstr "Denominacion de este coeficiente"
+
+msgctxt "help:condo.factor,total:"
+msgid "Sum of values for all the units/apartments in the condominium"
+msgstr "Suma de valores de este coeficiente de todas los inmuebles de la comunidad"
+
+msgctxt "help:condo.factor,notes:"
+msgid "Short description of this parameter"
+msgstr "Descripción del coeficiente"
+
+
+msgctxt "field:condo.party,unit:"
+msgid "Unit"
+msgstr "Inmueble"
+
+msgctxt "field:condo.party,role:"
+msgid "Role"
+msgstr "Función"
+
+msgctxt "field:condo.party,party:"
+msgid "Party"
+msgstr "Tercero"
+
+msgctxt "field:condo.party,mail:"
+msgid "Mail"
+msgstr "Correspondencia"
+
+msgctxt "field:condo.party,address:"
+msgid "Address"
+msgstr "Dirección"
+
+msgctxt "field:condo.party,isactive:"
+msgid "Active"
+msgstr "Activo"
+
+msgctxt "help:condo.party,mail:"
+msgid "Check if this party should receive mail"
+msgstr "Seleccionar si este tercero debe recibir correspondencia"
+
+msgctxt "help:condo.party,address:"
+msgid "Mail address for this party"
+msgstr "Dirección de envio de la correspondencia para este tercero"
+
+
+msgctxt "field:condo.unit,company:"
+msgid "Condominium"
+msgstr "Com. de Propietarios"
+
+msgctxt "field:condo.unit,name:"
+msgid "Unit"
+msgstr "Inmueble"
+
+msgctxt "field:condo.unit,parties:"
+msgid "Parties"
+msgstr "Terceros"
+
+msgctxt "field:condo.unit,factors:"
+msgid "Factors"
+msgstr "Coeficientes"
+
+
+msgctxt "field:condo.unit-factor,unit:"
+msgid "Unit"
+msgstr "Inmueble"
+
+msgctxt "field:condo.unit-factor,factor:"
+msgid "Factor"
+msgstr "Coeficiente"
+
+msgctxt "field:condo.unit-factor,value:"
+msgid "Value"
+msgstr "Valor"
+
+msgctxt "help:condo.unit-factor,value:"
+msgid "Value of factor for this unit/apartment"
+msgstr "Valor del coeficiente para este inmueble"
+
+
+msgctxt "field:condo.check_units_addressing.result,units_orphan:"
+msgid "Units without mail"
+msgstr "Inmuebles sin dirección de correo"
+
+msgctxt "field:condo.check_units_addressing.result,units_unsure:"
+msgid "Units to check"
+msgstr "Inmuebles a comprobar"
+
+
+msgctxt "field:party.party,units:"
+msgid "Units/Apartments"
+msgstr "Inmuebles"
+
+
+msgctxt "view:company.company:"
+msgid "Units"
+msgstr "Inmuebles"
+
+msgctxt "view:company.company:"
+msgid "Factors"
+msgstr "Coeficientes"
+
+msgctxt "view:condo.factor:"
+msgid "Condominium Factors"
+msgstr "Coeficientes de Comunidad"
+
+msgctxt "view:condo.party:"
+msgid "Condo Parties"
+msgstr "Partícipes"
+
+msgctxt "view:condo.unit:"
+msgid "Units/Apartments"
+msgstr "Inmuebles"
+
+msgctxt "view:condo.unit:"
+msgid "Parties"
+msgstr "Partícipes"
+
+msgctxt "view:condo.unit:"
+msgid "Factors"
+msgstr "Coeficientes"
+
+msgctxt "view:condo.unit-factor:"
+msgid "Units/Apartments Factors"
+msgstr "Coeficientes de Inmueble"
+
+msgctxt "view:condo.check_units_addressing.result:"
+msgid "Check Units/Apartments mail address"
+msgstr "Comprobar dirección de correo de inmuebles"
+
+
+msgctxt "model:ir.action,name:act_condo_form"
+msgid "Condominium"
+msgstr "Comunidades de Propietarios"
+
+msgctxt "model:ir.action,name:act_condoparty_form"
+msgid "Condo Parties"
+msgstr "Partícipes"
+
+msgctxt "model:ir.action,name:act_unit_form"
+msgid "Units"
+msgstr "Inmuebles"
+
+msgctxt "model:ir.action,name:act_unitfactor_form"
+msgid "Units Factors"
+msgstr "Coeficientes de inmueble"
+
+msgctxt "model:ir.action,name:wizard_check_units_addressing"
+msgid "Check Addressing List"
+msgstr "Comprobar direcciones correo"
+
+
+msgctxt "model:ir.ui.menu,name:menu_condominium"
+msgid "Condominium"
+msgstr "Comunidades"
+
+msgctxt "model:ir.ui.menu,name:menu_condo_form"
+msgid "Condominium"
+msgstr "Comunidades"
+
+msgctxt "model:ir.ui.menu,name:menu_unit_form"
+msgid "Units"
+msgstr "Inmuebles"
+
+msgctxt "model:ir.ui.menu,name:menu_condoparty_form"
+msgid "Condo Parties"
+msgstr "Partícipes"
+
+
+msgctxt "selection:condo.party,role:"
+msgid "Owner"
+msgstr "Propietario"
+
+msgctxt "selection:condo.party,role:"
+msgid "Tenant"
+msgstr "Arrendatario"
+
+
+msgctxt "wizard_button:party.condo.check_units_addressing,result,end:"
+msgid "OK"
+msgstr "Aceptar"
+
+
+msgctxt "model:ir.action,name:condoparty_addressing_small_envelopes"
+msgid "Addressing small envelopes"
+msgstr "Correspondencia sobres pequeños"
+
+msgctxt "model:ir.action,name:condoparty_addressing_big_envelopes"
+msgid "Addressing big envelopes"
+msgstr "Correspondencia sobres grandes"
+
+
+msgctxt "error:company.company:"
+msgid "This party is already used in another company!"
+msgstr "Este tercero ya está definido como empresa"
+
+msgctxt "error:party.address:"
+msgid "This address will be deactivate as mail address in all units/apartments!"
+msgstr "Esta dirección será desactivada como destino de correspondencia en todas los inmuebles!"
+
+msgctxt "error:condo.factor:"
+msgid "This factor name is already in use!"
+msgstr "Este nombre ya esta siendo utilizado"
+
+msgctxt "error:condo.factor:"
+msgid "The value must be equal or bigger than 0"
+msgstr "El valor del coeficiente debe ser igual o mayor a 0"
+
+msgctxt "error:condo.party:"
+msgid "Party must be unique in each apartment/unit!"
+msgstr "El tercero debe ser unico para cada inmueble"
+
+msgctxt "error:condo.party:"
+msgid "This party isn't active!"
+msgstr "Este tercero no está activo!"
+
+msgctxt "error:condo.party:"
+msgid "Set address or uncheck mail"
+msgstr "Introduzca dirección de correspondencia o desactive la casilla"
+
+msgctxt "error:condo.unit:"
+msgid "The apartment/unit must be unique in each condominium!"
+msgstr "La denominación del inmueble debe ser unica"
+
+msgctxt "error:condo.unit-factor:"
+msgid "This factor is already defined for this apartment/unit!"
+msgstr "Este coeficiente ya esta definido en este inmueble"
+
+msgctxt "error:condo.unit-factor:"
+msgid "The value of factor must be equal or bigger than 0"
+msgstr "El valor del coeficiente debe ser igual o mayor que 0"
+
+msgctxt "error:condo.unit-factor:"
+msgid "Sum of factor's units is bigger than factor's total"
+msgstr "La suma de coeficientes es superior al valor total para esta comunidad"
+
+msgctxt "error:party.party:"
+msgid "Party name should be stripped!"
+msgstr "No se permiten espacios antes y/o despues del nombre"
+
+msgctxt "error:party.party:"
+msgid "Party name already exists!"
+msgstr "Existe un tercero con el mismo nombre"
+
+msgctxt "error:party.party:"
+msgid "This party will be deactivate in all of his units/apartments!"
+msgstr "Este tercero será desactivado en todas los inmuebles"

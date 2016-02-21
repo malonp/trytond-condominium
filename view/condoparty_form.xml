@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form string="Condo Parties" col="10">
+    <label name="unit"/>
+    <field name="unit" colspan="9"/>
+    <label name="role"/>
+    <field name="role" widget="selection"/>
+    <label name="party"/>
+    <field name="party" colspan="5"/>
+    <label name="isactive"/>
+    <field name="isactive"
+        xexpand="0" width="25"/>
+    <newline/>
+    <label name="mail"/>
+    <field name="mail"
+        xexpand="0" width="25"/>
+    <label name="address"/>
+    <field name="address" colspan="7"/>
+</form>

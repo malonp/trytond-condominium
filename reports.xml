@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="ir.action.report" id="condoparty_addressing_small_envelopes">
+            <field name="name">Addressing small envelopes</field>
+            <field name="model"></field>
+            <field name="report_name">condo.address_list</field>
+            <field name="report">condominium/report/letter_b6(iso).odt</field>
+        </record>
+
+        <record model="ir.action.report" id="condoparty_addressing_big_envelopes">
+            <field name="name">Addressing big envelopes</field>
+            <field name="model"></field>
+            <field name="report_name">condo.address_list</field>
+            <field name="report">condominium/report/letter_envelope_c5.odt</field>
+        </record>
+
+
+        <record model="ir.action.keyword" id="condoparty_small_envelopes">
+            <field name="keyword">form_print</field>
+            <field name="model">company.company,-1</field>
+            <field name="action" ref="condoparty_addressing_small_envelopes"/>
+        </record>
+
+        <record model="ir.action.keyword" id="condoparty_big_envelopes">
+            <field name="keyword">form_print</field>
+            <field name="model">company.company,-1</field>
+            <field name="action" ref="condoparty_addressing_big_envelopes"/>
+        </record>
+    </data>
+</tryton>

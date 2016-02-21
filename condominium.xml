@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+
+<!-- Create the GNU Condo icon -->
+        <record model="ir.ui.icon" id="condo_icon">
+            <field name="name">condominium</field>
+            <field name="path">icons/building155.svg</field>
+        </record>
+
+<!-- Add other icons -->
+        <record model="ir.ui.icon" id="condo_item_icon">
+            <field name="name">condominium_item</field>
+            <field name="path">icons/city36.svg</field>
+        </record>
+
+        <record model="ir.ui.icon" id="unit_icon">
+            <field name="name">unit</field>
+            <field name="path">icons/opened33.svg</field>
+        </record>
+
+        <record model="ir.ui.icon" id="owner_icon">
+            <field name="name">condoparty</field>
+            <field name="path">icons/family24.svg</field>
+        </record>
+
+<!-- Configuration administration group -->
+
+        <record model="res.group" id="group_condominium_admin">
+            <field name="name">Condominium Administration</field>
+        </record>
+
+        <record model="res.user-res.group" id="user_admin_group_condominium_admin">
+            <field name="user" ref="res.user_admin"/>
+            <field name="group" ref="group_condominium_admin"/>
+        </record>
+
+        <record model="res.user-res.group" id="user_trigger_group_condominium_admin">
+            <field name="user" ref="res.user_trigger"/>
+            <field name="group" ref="group_condominium_admin"/>
+        </record>
+
+<!-- Form View -->
+        <record model="ir.ui.view" id="condo_view_form">
+            <field name="model">company.company</field>
+            <field name="type">form</field>
+            <field name="name">condo_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="condoparty_view_form">
+            <field name="model">condo.party</field>
+            <field name="type">form</field>
+            <field name="name">condoparty_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="unit_view_form">
+            <field name="model">condo.unit</field>
+            <field name="type">form</field>
+            <field name="name">unit_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="unitfactor_view_form">
+            <field name="model">condo.unit-factor</field>
+            <field name="type">form</field>
+            <field name="name">unitfactor_form</field>
+        </record>
+
+<!-- List View -->
+        <record model="ir.ui.view" id="condo_view_tree">
+            <field name="model">company.company</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">condo_list</field>
+        </record>
+
+        <record model="ir.ui.view" id="factor_view_tree">
+            <field name="model">condo.factor</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">factor_tree</field>
+        </record>
+
+        <record model="ir.ui.view" id="condoparty_view_tree">
+            <field name="model">condo.party</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">condoparty_tree</field>
+        </record>
+
+        <record model="ir.ui.view" id="condoparty_view_tree_sequence">
+            <field name="model">condo.party</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="20"/>
+            <field name="name">condoparty_tree_sequence</field>
+        </record>
+
+        <record model="ir.ui.view" id="unit_view_tree">
+            <field name="model">condo.unit</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">unit_tree</field>
+        </record>
+
+        <record model="ir.ui.view" id="unit_view_tree_sequence">
+            <field name="model">condo.unit</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="20"/>
+            <field name="name">unit_tree_sequence</field>
+        </record>
+
+        <record model="ir.ui.view" id="unitfactor_view_tree">
+            <field name="model">condo.unit-factor</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">unitfactor_tree</field>
+        </record>
+
+        <record model="ir.ui.view" id="check_units_addressing_result">
+            <field name="model">condo.check_units_addressing.result</field>
+            <field name="type">form</field>
+            <field name="name">check_units_addressing_result</field>
+        </record>
+
+<!-- Actions -->
+        <record model="ir.action.act_window" id="act_condo_form">
+            <field name="name">Condominium</field>
+            <field name="res_model">company.company</field>
+            <field name="domain" eval="[('is_Condominium', '=', True)]" pyson="1"/>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_condo_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="condo_view_tree"/>
+            <field name="act_window" ref="act_condo_form"/>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_condo_form_view2">
+          <field name="sequence" eval="20"/>
+          <field name="view" ref="condo_view_form"/>
+          <field name="act_window" ref="act_condo_form"/>
+        </record>
+
+        <record model="ir.action.act_window" id="act_condoparty_form">
+            <field name="name">Condo Parties</field>
+            <field name="res_model">condo.party</field>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_condoparty_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="condoparty_view_tree"/>
+            <field name="act_window" ref="act_condoparty_form"/>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_condoparty_form_view2">
+          <field name="sequence" eval="20"/>
+          <field name="view" ref="condoparty_view_form"/>
+          <field name="act_window" ref="act_condoparty_form"/>
+        </record>
+
+        <record model="ir.action.act_window" id="act_unit_form">
+            <field name="name">Units</field>
+            <field name="res_model">condo.unit</field>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_unit_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="unit_view_tree"/>
+            <field name="act_window" ref="act_unit_form"/>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_unit_form_view2">
+          <field name="sequence" eval="20"/>
+          <field name="view" ref="unit_view_form"/>
+          <field name="act_window" ref="act_unit_form"/>
+        </record>
+
+        <record model="ir.action.act_window" id="act_unitfactor_form">
+            <field name="name">Units Factors</field>
+            <field name="res_model">condo.unit-factor</field>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_unitfactor_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="unitfactor_view_tree"/>
+            <field name="act_window" ref="act_unitfactor_form"/>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_unitfactor_form_view2">
+          <field name="sequence" eval="20"/>
+          <field name="view" ref="unitfactor_view_form"/>
+          <field name="act_window" ref="act_unitfactor_form"/>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_check_units_addressing">
+            <field name="name">Check Addressing List</field>
+            <field name="wiz_name">condo.check_units_addressing</field>
+            <field name="model">company.company</field>
+        </record>
+
+        <record model="ir.action.keyword" id="check_units_addressing_keyword">
+            <field name="keyword">form_action</field>
+            <field name="model">company.company,-1</field>
+            <field name="action" ref="wizard_check_units_addressing"/>
+        </record>
+
+<!-- Initial Menu -->
+
+        <menuitem name="Condominium" sequence="2" id="menu_condominium" icon="condominium"/>
+
+        <menuitem name="Condominium" parent="condominium.menu_condominium"
+              sequence="10" action="act_condo_form"
+              id="menu_condo_form" icon="condominium_item"/>
+
+        <menuitem name="Units" parent="condominium.menu_condominium"
+              sequence="20" action="act_unit_form"
+              id="menu_unit_form" icon="unit"/>
+
+        <menuitem name="Condo Parties" parent="condominium.menu_condominium"
+              sequence="30" action="act_condoparty_form"
+              id="menu_condoparty_form" icon="condoparty"/>
+
+    </data>
+</tryton>

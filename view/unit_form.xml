@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form string="Units/Apartments" col="6">
+    <label name="company"/>
+    <field name="company" colspan="5"/>
+    <label name="name"/>
+    <field name="name"/>
+    <group colspan="2" col="20" id="checkboxes">
+        <!-- Add here some checkboxes ! -->
+    </group>
+    <newline/>
+    <notebook colspan="6">
+        <page string="Parties" id="unit_parties">
+            <field name="parties" mode="form,tree" colspan="4"
+                view_ids="condominium.condoparty_view_form,condominium.condoparty_view_tree_sequence"/>
+        </page>
+        <page string="Factors" id="unit_factors">
+            <field name="factors" mode="form,tree" colspan="4"
+                view_ids="condominium.unitfactor_view_form,condominium.unitfactor_view_tree"/>
+        </page>
+    </notebook>
+</form>

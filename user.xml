@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+
+<!-- Inherit Form View -->
+
+        <record model="ir.ui.view" id="user_warning_view_form">
+            <field name="model">res.user</field>
+            <field name="inherit" ref="res.user_view_form"/>
+            <field name="name">user_warning_form</field>
+        </record>
+
+<!-- List View -->
+
+<!-- Actions -->
+
+<!-- Menu Item -->
+
+    </data>
+</tryton>

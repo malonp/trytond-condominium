@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form string="Condominium" col="6">
+    <label name="party"/>
+    <field name="party"/>
+    <label name="parent"/>
+    <field name="parent"/>
+    <notebook colspan="6">
+        <page string="Units" id="condo_units">
+            <field name="condo_units" mode="tree" colspan="4"
+                view_ids="condominium.unit_view_tree_sequence"/>
+        </page>
+        <page string="Factors" id="condo_factors">
+            <field name="condo_factors" mode="tree" colspan="4"
+                view_ids="condominium.factor_view_tree"/>
+        </page>
+    </notebook>
+</form>
