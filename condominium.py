@@ -94,7 +94,7 @@ class CondoParty(ModelSQL, ModelView):
             })
     address = fields.Many2One('party.address', 'Address', help="Mail address for this party",
         depends=['isactive', 'mail', 'party'], domain=[('party', '=', Eval('party')),('active', '=', True)],
-        ondelete='CASCADE', states={
+        ondelete='SET NULL', states={
             'readonly': ~Eval('isactive'),
             'invisible': Not(Bool(Eval('mail')))
             })

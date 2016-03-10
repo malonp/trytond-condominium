@@ -19,31 +19,18 @@
 #
 ##############################################################################
 
-from trytond.pool import Pool
-
-from .address import *
-from .company import *
-from .condominium import *
-from .party import *
-from .contact_mechanism import *
-from report import *
+from trytond.pool import PoolMeta
 
 
-def register():
-    Pool.register(
-        Unit,
-        CondoParty,
-        CheckAddressingList,
-        CondoAddress,
-        CondoFactors,
-        Party,
-        ContactMechanism,
-        UnitFactor,
-        Condominium,
-        module='condominium', type_='model')
-    Pool.register(
-        AddressList,
-        module='condominium', type_='report')
-    Pool.register(
-        CheckUnitMailAddress,
-        module='condominium', type_='wizard')
+__all__ = ['ContactMechanism']
+__metaclass__ = PoolMeta
+
+
+class ContactMechanism:
+    "Contact Mechanism"
+    __name__ = 'party.contact_mechanism'
+
+    @classmethod
+    def __setup__(cls):
+        super(ContactMechanism, cls).__setup__()
+        cls._history = True
