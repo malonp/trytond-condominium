@@ -26,7 +26,7 @@ from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, Not, Bool
 
 
-__all__ = ['Party']
+__all__ = ['Party', 'PartyIdentifier']
 __metaclass__ = PoolMeta
 
 
@@ -74,3 +74,13 @@ class Party:
                 for condoparty in condoparties:
                     condoparty.isactive = False
                     condoparty.save()
+
+
+class PartyIdentifier:
+    'Party Identifier'
+    __name__ = 'party.identifier'
+
+    @classmethod
+    def __setup__(cls):
+        super(PartyIdentifier, cls).__setup__()
+        cls._history = True

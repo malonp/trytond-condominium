@@ -37,6 +37,7 @@ def register():
         CondoAddress,
         CondoFactors,
         Party,
+        PartyIdentifier,
         ContactMechanism,
         UnitFactor,
         Condominium,
