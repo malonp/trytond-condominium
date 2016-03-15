@@ -75,6 +75,11 @@ class CondoParty(ModelSQL, ModelView):
         select=True, states={
             'readonly': If(~Eval('isactive'), True, Eval('id', 0) > 0),
             })
+    company = fields.Function(fields.Many2One('company.company',
+        'Company', depends=['unit'], readonly=True),
+        'get_company', searcher='search_company')
+    unit_name=fields.Function(fields.Char('Unit'),
+        'get_unit_name', searcher='search_unit_name')
     role = fields.Selection([
             (None, ''),
             ('owner', 'Owner'),
@@ -124,6 +129,52 @@ class CondoParty(ModelSQL, ModelView):
     @staticmethod
     def default_isactive():
         return True
+
+    def get_unit_name(self, name):
+        if self.unit:
+            return self.unit.name
+
+    @classmethod
+    def search_unit_name(cls, name, domain):
+        table = cls.__table__()
+        _, operator, value = domain
+        Operator = fields.SQL_OPERATORS[operator]
+        pool = Pool()
+
+        table1 = pool.get('condo.unit').__table__()
+        query1 = table1.select(table1.id,
+            where=Operator(table1.name, value))
+
+        query = table.select(table.id,
+            where=(table.unit.in_(query1)))
+        return [('id', 'in', query)]
+
+    def get_company(self, name):
+        if self.unit:
+            return self.unit.company.id
+
+    @classmethod
+    def search_company(cls, name, domain):
+        table = cls.__table__()
+        _, operator, value = domain
+        Operator = fields.SQL_OPERATORS[operator]
+        pool = Pool()
+
+        table1 = pool.get('party.party').__table__()
+        query1 = table1.select(table1.id,
+            where=Operator(table1.name, value))
+
+        table2 = pool.get('company.company').__table__()
+        query2 = table2.select(table2.id,
+            where=(table2.party.in_(query1)))
+
+        table3 = pool.get('condo.unit').__table__()
+        query3 = table3.select(table3.id,
+            where=(table3.company.in_(query2)))
+
+        query = table.select(table.id,
+            where=(table.unit.in_(query3)))
+        return [('id', 'in', query)]
 
     @classmethod
     def validate(cls, condoparties):
