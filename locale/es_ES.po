@@ -53,6 +53,14 @@ msgctxt "field:condo.party,unit:"
 msgid "Unit"
 msgstr "Inmueble"
 
+msgctxt "field:condo.party,company:"
+msgid "Company"
+msgstr "Com. de Propietarios"
+
+msgctxt "field:condo.party,unit_name:"
+msgid "Unit"
+msgstr "Inmueble"
+
 msgctxt "field:condo.party,role:"
 msgid "Role"
 msgstr "Función"
@@ -166,6 +174,9 @@ msgctxt "view:condo.check_units_addressing.result:"
 msgid "Check Units/Apartments mail address"
 msgstr "Comprobar dirección de correo de inmuebles"
 
+msgctxt "view:party.party:"
+msgid "Units/Apartments"
+msgstr "Inmuebles"
 
 msgctxt "model:ir.action,name:act_condo_form"
 msgid "Condominium"
