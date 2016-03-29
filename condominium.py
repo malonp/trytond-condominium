@@ -21,6 +21,7 @@
 
 
 from decimal import Decimal
+from itertools import chain
 
 from trytond.model import ModelView, ModelSQL, fields, Unique
 from trytond.pool import Pool
@@ -75,11 +76,10 @@ class CondoParty(ModelSQL, ModelView):
         select=True, states={
             'readonly': If(~Eval('isactive'), True, Eval('id', 0) > 0),
             })
-    company = fields.Function(fields.Many2One('company.company',
-        'Company', depends=['unit'], readonly=True),
-        'get_company', searcher='search_company')
+    company = fields.Function(fields.Many2One('company.company', 'Company'),
+        getter='get_company', searcher='search_company')
     unit_name=fields.Function(fields.Char('Unit'),
-        'get_unit_name', searcher='search_unit_name')
+        getter='get_unit_name', searcher='search_unit_name')
     role = fields.Selection([
             (None, ''),
             ('owner', 'Owner'),
@@ -130,51 +130,72 @@ class CondoParty(ModelSQL, ModelView):
     def default_isactive():
         return True
 
-    def get_unit_name(self, name):
-        if self.unit:
-            return self.unit.name
+    @classmethod
+    def get_unit_name(cls, condoparties, name):
+         return dict([ (p.id, p.unit.name) for p in condoparties if p.unit ])
 
     @classmethod
     def search_unit_name(cls, name, domain):
-        table = cls.__table__()
         _, operator, value = domain
         Operator = fields.SQL_OPERATORS[operator]
+
         pool = Pool()
-
         table1 = pool.get('condo.unit').__table__()
-        query1 = table1.select(table1.id,
-            where=Operator(table1.name, value))
+        table2 = cls.__table__()
 
-        query = table.select(table.id,
-            where=(table.unit.in_(query1)))
+        query = table1.join(table2,
+                        condition=table1.id == table2.unit).select(
+                             table2.id,
+                             where=Operator(table1.name, value))
+
         return [('id', 'in', query)]
 
-    def get_company(self, name):
-        if self.unit:
-            return self.unit.company.id
+    @classmethod
+    def order_unit_name(cls, tables):
+        return chain.from_iterable([cls.unit.convert_order('unit', tables, cls),
+                cls.company.convert_order('company', tables, cls)])
+
+    @classmethod
+    def get_company(cls, condoparties, name):
+         return dict([ (p.id, p.unit.company.id) for p in condoparties if p.unit ])
 
     @classmethod
     def search_company(cls, name, domain):
-        table = cls.__table__()
         _, operator, value = domain
         Operator = fields.SQL_OPERATORS[operator]
+
         pool = Pool()
-
         table1 = pool.get('party.party').__table__()
-        query1 = table1.select(table1.id,
-            where=Operator(table1.name, value))
-
         table2 = pool.get('company.company').__table__()
-        query2 = table2.select(table2.id,
-            where=(table2.party.in_(query1)))
-
         table3 = pool.get('condo.unit').__table__()
-        query3 = table3.select(table3.id,
-            where=(table3.company.in_(query2)))
+        table4 = cls.__table__()
 
-        query = table.select(table.id,
-            where=(table.unit.in_(query3)))
+        query = table1.join(table2,
+                        condition=table1.id == table2.party).join(table3,
+                        condition=table2.id == table3.company).join(table4,
+                        condition=table3.id == table4.unit).select(
+                             table4.id,
+                             where=Operator(table1.name, value))
+
         return [('id', 'in', query)]
+
+    @staticmethod
+    def order_company(tables):
+        pool = Pool()
+        Unit = pool.get('condo.unit')
+
+        field = Unit._fields['company']
+        table, _ = tables[None]
+        unit = Unit.__table__()
+
+        order_tables = tables.get('unit')
+        if order_tables is None:
+            order_tables = {
+                    None: (unit, unit.id == table.unit),
+                    }
+            tables['unit'] = order_tables
+
+        return field.convert_order('company', order_tables, Unit)
 
     @classmethod
     def validate(cls, condoparties):
