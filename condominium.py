@@ -159,6 +159,11 @@ class CondoParty(ModelSQL, ModelView):
     def get_company(cls, condoparties, name):
          return dict([ (p.id, p.unit.company.id) for p in condoparties if p.unit ])
 
+    @fields.depends('unit')
+    def on_change_with_company(self):
+        if self.unit:
+            return self.unit.company.id
+
     @classmethod
     def search_company(cls, name, domain):
         _, operator, value = domain
