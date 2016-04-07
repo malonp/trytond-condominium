@@ -12,12 +12,12 @@ this repository contains the full copyright notices and license terms. -->
     <newline/>
     <notebook colspan="6">
         <page string="Parties" id="unit_parties">
-            <field name="parties" mode="form,tree" colspan="4"
-                view_ids="condominium.condoparty_view_form,condominium.condoparty_view_tree_sequence"/>
+            <field name="parties" mode="tree,form" colspan="4"
+                view_ids="condominium.condoparty_view_tree_sequence,condominium.condoparty_view_form"/>
         </page>
         <page string="Factors" id="unit_factors">
-            <field name="factors" mode="form,tree" colspan="4"
-                view_ids="condominium.unitfactor_view_form,condominium.unitfactor_view_tree"/>
+            <field name="factors" mode="tree,form" colspan="4"
+                view_ids="condominium.unitfactor_view_tree,condominium.unitfactor_view_form"/>
         </page>
     </notebook>
 </form>

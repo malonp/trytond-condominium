@@ -189,7 +189,8 @@ class CondoParty(ModelSQL, ModelView):
         pool = Pool()
         Unit = pool.get('condo.unit')
 
-        field = Unit._fields['company']
+        field1 = Unit._fields['company']
+        field2 = Unit._fields['name']
         table, _ = tables[None]
         unit = Unit.__table__()
 
@@ -199,8 +200,9 @@ class CondoParty(ModelSQL, ModelView):
                     None: (unit, unit.id == table.unit),
                     }
             tables['unit'] = order_tables
-
-        return field.convert_order('company', order_tables, Unit)
+            return chain.from_iterable([field1.convert_order('company', order_tables, Unit),
+                                        field2.convert_order('name', order_tables, Unit)])
+        return field1.convert_order('company', order_tables, Unit)
 
     @classmethod
     def validate(cls, condoparties):
@@ -256,6 +258,7 @@ class Unit(ModelSQL, ModelView):
     def __setup__(cls):
         super(Unit, cls).__setup__()
         cls._order.insert(0, ('company', 'ASC'))
+        cls._order.insert(1, ('name', 'ASC'))
         t = cls.__table__()
         cls._sql_constraints += [
             ('unit_unique', Unique(t,t.company, t.name),
