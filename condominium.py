@@ -105,7 +105,7 @@ class CondoParty(ModelSQL, ModelView):
             })
     # if the object has a field named 'active', trytond filter out all inactive (model/modelstorage.py)
     # we call this field 'isactive' so inactive registers aren't filtered
-    isactive = fields.Boolean('Active')
+    isactive = fields.Boolean('Active', select=True)
 
     def get_rec_name(self, name):
         return ", ".join(x for x in [self.party.name,

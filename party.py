@@ -24,6 +24,8 @@ import datetime
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, Not, Bool
+from trytond.tools import reduce_ids, grouped_slice
+from trytond.transaction import Transaction
 
 
 __all__ = ['Party', 'PartyIdentifier']
@@ -60,20 +62,31 @@ class Party:
                 parties_count = parties.search_count(
                     [('name', '=', self.name), ('active', 'in', (True, False))])
                 if (parties_count > 1):
-                    self.raise_user_warning('warn_party_with_same_name',
+                    self.raise_user_warning('warn_party_with_same_name.%d' % self.id,
                         'Party name already exists!', self.rec_name)
 
     def validate_active(self):
         #Deactivate party as unit owner on party deactivate
         if (self.id > 0) and not self.active:
-            CondoParty = Pool().get('condo.party')
-            condoparties = CondoParty.search([('party', '=', self.id),('isactive', '=', True),])
-            if len(condoparties):
-                self.raise_user_warning('warn_deactive_party',
-                    'This party will be deactivate in all of his units/apartments!', self.rec_name)
-                for condoparty in condoparties:
-                    condoparty.isactive = False
-                    condoparty.save()
+            condoparties = Pool().get('condo.party').__table__()
+            cursor = Transaction().cursor
+
+            cursor.execute(*condoparties.select(condoparties.id,
+                                        where=(condoparties.party == self.id) &
+                                              (condoparties.isactive == True)))
+
+            ids = [ids for (ids,) in cursor.fetchall()]
+            if len(ids):
+                self.raise_user_warning('warn_deactive_party.%d' % self.id,
+                    'This party will be deactivate in %d unit(s)/apartment(s)!', len(ids))
+
+                for sub_ids in grouped_slice(ids):
+                    red_sql = reduce_ids(condoparties.id, sub_ids)
+                    # Use SQL to prevent double validate loop
+                    cursor.execute(*condoparties.update(
+                            columns=[condoparties.isactive],
+                            values=[False],
+                            where=red_sql))
 
 
 class PartyIdentifier:

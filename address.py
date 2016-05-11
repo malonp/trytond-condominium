@@ -22,6 +22,8 @@
 
 from sql import Null
 from trytond.pool import Pool, PoolMeta
+from trytond.tools import reduce_ids, grouped_slice
+from trytond.transaction import Transaction
 
 
 __all__ = ['CondoAddress']
@@ -63,12 +65,22 @@ class CondoAddress:
     def validate_active(self):
         #Deactivate address as mail address of unit's party
         if (self.id > 0) and not self.active:
-            CondoParty = Pool().get('condo.party')
-            condoparties = CondoParty.search([('address', '=', self.id),('isactive', '=', True),])
-            if len(condoparties):
-                self.raise_user_warning('warn_deactive_party_address',
-                    'This address will be deactivate as mail address in all units/apartments!', self.rec_name)
-                for condoparty in condoparties:
-                    condoparty.mail = False
-                    condoparty.address = Null
-                    condoparty.save()
+            condoparties = Pool().get('condo.party').__table__()
+            cursor = Transaction().cursor
+
+            cursor.execute(*condoparties.select(condoparties.id,
+                                        where=(condoparties.address == self.id) &
+                                              (condoparties.isactive == True)))
+
+            ids = [ids for (ids,) in cursor.fetchall()]
+            if len(ids):
+                self.raise_user_warning('warn_deactive_party_address.%d' % self.id,
+                    'This address will be deactivate as mail address in %d unit(s)/apartment(s)!', len(ids))
+
+                for sub_ids in grouped_slice(ids):
+                    red_sql = reduce_ids(condoparties.id, sub_ids)
+                    # Use SQL to prevent double validate loop
+                    cursor.execute(*condoparties.update(
+                            columns=[condoparties.mail, condoparties.address],
+                            values=[False, Null],
+                            where=red_sql))

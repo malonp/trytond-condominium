@@ -244,8 +244,8 @@ msgid "This party is already used in another company!"
 msgstr "Este tercero ya está definido como empresa"
 
 msgctxt "error:party.address:"
-msgid "This address will be deactivate as mail address in all units/apartments!"
-msgstr "Esta dirección será desactivada como destino de correspondencia en todas los inmuebles!"
+msgid "This address will be deactivate as mail address in %d unit(s)/apartment(s)!"
+msgstr "Esta dirección será desactivada como destino de correspondencia en %d inmueble(s)!"
 
 msgctxt "error:condo.factor:"
 msgid "This factor name is already in use!"
@@ -292,5 +292,5 @@ msgid "Party name already exists!"
 msgstr "Existe un tercero con el mismo nombre"
 
 msgctxt "error:party.party:"
-msgid "This party will be deactivate in all of his units/apartments!"
-msgstr "Este tercero será desactivado en todas los inmuebles"
+msgid "This party will be deactivate in %d unit(s)/apartment(s)!"
+msgstr "Este tercero será desactivado en %d inmueble(s)"
