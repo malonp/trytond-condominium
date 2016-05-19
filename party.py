@@ -23,7 +23,6 @@ import datetime
 
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval, Not, Bool
 from trytond.tools import reduce_ids, grouped_slice
 from trytond.transaction import Transaction
 
@@ -43,11 +42,11 @@ class Party:
         cls._history = True
 
     @classmethod
-    def validate(cls, condos):
-        super(Party, cls).validate(condos)
-        for condo in condos:
-            condo.validate_name()
-            condo.validate_active()
+    def validate(cls, parties):
+        super(Party, cls).validate(parties)
+        for party in parties:
+            party.validate_name()
+            party.validate_active()
 
     def validate_name(self):
         #Warn on existing name and constraint non stripped names
@@ -77,7 +76,7 @@ class Party:
 
             ids = [ids for (ids,) in cursor.fetchall()]
             if len(ids):
-                self.raise_user_warning('warn_deactive_party.%d' % self.id,
+                self.raise_user_warning('warn_deactive_condos_of_party.%d' % self.id,
                     'This party will be deactivate in %d unit(s)/apartment(s)!', len(ids))
 
                 for sub_ids in grouped_slice(ids):
