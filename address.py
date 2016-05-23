@@ -70,7 +70,7 @@ class CondoAddress:
 
             cursor.execute(*condoparties.select(condoparties.id,
                                         where=(condoparties.address == self.id) &
-                                              (condoparties.isactive == True)))
+                                              (condoparties.active == True)))
 
             ids = [ids for (ids,) in cursor.fetchall()]
             if len(ids):

@@ -23,6 +23,7 @@
 from decimal import Decimal
 from itertools import chain
 
+from trytond import backend
 from trytond.model import ModelView, ModelSQL, fields, Unique
 from trytond.pool import Pool
 from trytond.pyson import Eval, If, Not, Bool
@@ -72,9 +73,9 @@ class CondoParty(ModelSQL, ModelView):
     'Condominium Party'
     __name__ = 'condo.party'
     unit = fields.Many2One('condo.unit', 'Unit',
-        depends=['isactive', 'id'], ondelete='CASCADE', required=True,
+        depends=['active', 'id'], ondelete='CASCADE', required=True,
         select=True, states={
-            'readonly': If(~Eval('isactive'), True, Eval('id', 0) > 0),
+            'readonly': If(~Eval('active'), True, Eval('id', 0) > 0),
             })
     company = fields.Function(fields.Many2One('company.company', 'Company'),
         getter='get_company', searcher='search_company')
@@ -85,27 +86,26 @@ class CondoParty(ModelSQL, ModelView):
             ('owner', 'Owner'),
             ('tenant', 'Tenant'),
             ], 'Role',
-        depends=['isactive'], states={
-            'readonly': If(~Eval('isactive'), True, Eval('id', 0) > 0),
+        depends=['active'], states={
+            'readonly': If(~Eval('active'), True, Eval('id', 0) > 0),
             })
     party = fields.Many2One('party.party', 'Party',
-        depends=['isactive', 'id'], ondelete='CASCADE', required=True,
+        depends=['active', 'id'], ondelete='CASCADE', required=True,
         select=True, states={
-            'readonly': If(~Eval('isactive'), True, Eval('id', 0) > 0),
+            'readonly': If(~Eval('active'), True, Eval('id', 0) > 0),
             })
     mail = fields.Boolean('Mail', help="Check if this party should receive mail",
-        depends=['isactive'], states={
-            'readonly': ~Eval('isactive'),
+        depends=['active'], states={
+            'readonly': ~Eval('active'),
             })
     address = fields.Many2One('party.address', 'Address', help="Mail address for this party",
-        depends=['isactive', 'mail', 'party'], domain=[('party', '=', Eval('party')),('active', '=', True)],
+        depends=['active', 'mail', 'party'], domain=[('party', '=', Eval('party')),('active', '=', True)],
         ondelete='SET NULL', states={
-            'readonly': ~Eval('isactive'),
+            'readonly': ~Eval('active'),
             'invisible': Not(Bool(Eval('mail')))
             })
     # if the object has a field named 'active', trytond filter out all inactive (model/modelstorage.py)
-    # we call this field 'isactive' so inactive registers aren't filtered
-    isactive = fields.Boolean('Active', select=True)
+    active = fields.Boolean('Active', select=True)
 
     def get_rec_name(self, name):
         return ", ".join(x for x in [self.party.name,
@@ -122,12 +122,25 @@ class CondoParty(ModelSQL, ModelView):
         ]
         cls._history = True
 
+    @classmethod
+    def __register__(cls, module_name):
+        TableHandler = backend.get('TableHandler')
+        cursor = Transaction().cursor
+        table = TableHandler(cursor, cls, module_name)
+
+        # Migration from 0.6:
+        #   - isactive renamed into active
+        if table.column_exist('isactive'):
+            table.column_rename('isactive', 'active')
+
+        super(CondoParty, cls).__register__(module_name)
+
     @staticmethod
     def default_mail():
         return True
 
     @staticmethod
-    def default_isactive():
+    def default_active():
         return True
 
     @classmethod
@@ -212,7 +225,7 @@ class CondoParty(ModelSQL, ModelView):
             condoparty.address_when_mail()
 
     def party_is_active(self):
-        if not self.party.active and self.isactive:
+        if not self.party.active and self.active:
             self.raise_user_error(
                 "This party isn't active!")
 
@@ -359,7 +372,7 @@ class CheckUnitMailAddress(Wizard):
         condoparties = CondoParty.search([
                 ('unit', 'in', [ x['id'] for x in units ]),
                 ('mail', '=', True),
-                ('isactive', '=', True),
+                ('active', '=', True),
                 ], order=[('unit.company', 'ASC'), ('unit.name', 'ASC')])
 
         #All UNITS WITH PARTIES THAT HAVE MAIL defined (in the unit itself or other selected units)

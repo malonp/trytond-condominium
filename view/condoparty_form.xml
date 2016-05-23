@@ -8,8 +8,8 @@ this repository contains the full copyright notices and license terms. -->
     <field name="role" widget="selection"/>
     <label name="party"/>
     <field name="party" colspan="5"/>
-    <label name="isactive"/>
-    <field name="isactive"
+    <label name="active"/>
+    <field name="active"
         xexpand="0" width="25"/>
     <newline/>
     <label name="mail"/>

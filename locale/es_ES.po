@@ -77,7 +77,7 @@ msgctxt "field:condo.party,address:"
 msgid "Address"
 msgstr "Dirección"
 
-msgctxt "field:condo.party,isactive:"
+msgctxt "field:condo.party,active:"
 msgid "Active"
 msgstr "Activo"
 

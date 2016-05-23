@@ -72,7 +72,7 @@ class Party:
 
             cursor.execute(*condoparties.select(condoparties.id,
                                         where=(condoparties.party == self.id) &
-                                              (condoparties.isactive == True)))
+                                              (condoparties.active == True)))
 
             ids = [ids for (ids,) in cursor.fetchall()]
             if len(ids):
@@ -83,7 +83,7 @@ class Party:
                     red_sql = reduce_ids(condoparties.id, sub_ids)
                     # Use SQL to prevent double validate loop
                     cursor.execute(*condoparties.update(
-                            columns=[condoparties.isactive],
+                            columns=[condoparties.active],
                             values=[False],
                             where=red_sql))
 
