@@ -279,6 +279,17 @@ class Unit(ModelSQL, ModelView):
         ]
         cls._history = True
 
+    @staticmethod
+    def order_company(tables):
+        table, _ = tables[None]
+        return [table.company, table.name]
+
+    @staticmethod
+    def order_name(tables):
+        table, _ = tables[None]
+        return [table.name, table.company]
+
+
 class UnitFactor(ModelSQL, ModelView):
     'Unit Factor'
     __name__ = 'condo.unit-factor'
