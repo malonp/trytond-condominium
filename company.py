@@ -25,14 +25,13 @@ from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, Not, Bool
 
 
-__all__ = ['Condominium']
+__all__ = ['Company']
 __metaclass__ = PoolMeta
 
 
-class Condominium:
-    'Condominium Company'
+class Company:
     __name__ = 'company.company'
-    is_Condominium = fields.Boolean('Codominium', help='Check if this company is a condominium',
+    is_Condominium = fields.Boolean('Condominium', help='Check if this company is a condominium',
             select=True)
     condo_units = fields.One2Many('condo.unit', 'company', 'Units/Apartments',
         depends=['is_Condominium'], states={
@@ -45,7 +44,7 @@ class Condominium:
 
     @classmethod
     def __setup__(cls):
-        super(Condominium, cls).__setup__()
+        super(Company, cls).__setup__()
         t = cls.__table__()
         cls._sql_constraints += [
             ('condo_company_uniq', Unique(t,t.party),

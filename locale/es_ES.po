@@ -4,7 +4,7 @@ msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 
 msgctxt "field:company.company,is_Condominium:"
-msgid "Codominium"
+msgid "Condominium"
 msgstr "Com. de Propietarios"
 
 msgctxt "field:company.company,condo_units:"

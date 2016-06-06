@@ -34,13 +34,13 @@ def register():
         Unit,
         CondoParty,
         CheckAddressingList,
-        CondoAddress,
+        Address,
         CondoFactors,
         Party,
         PartyIdentifier,
         ContactMechanism,
         UnitFactor,
-        Condominium,
+        Company,
         module='condominium', type_='model')
     Pool.register(
         AddressList,

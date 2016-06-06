@@ -26,17 +26,17 @@ from trytond.tools import reduce_ids, grouped_slice
 from trytond.transaction import Transaction
 
 
-__all__ = ['CondoAddress']
+__all__ = ['Address']
 __metaclass__ = PoolMeta
 
 
-class CondoAddress:
+class Address:
     "Address"
     __name__ = 'party.address'
 
     @classmethod
     def __setup__(cls):
-        super(CondoAddress, cls).__setup__()
+        super(Address, cls).__setup__()
         cls._history = True
 
     def get_rec_name(self, name):
@@ -58,7 +58,7 @@ class CondoAddress:
 
     @classmethod
     def validate(cls, addresses):
-        super(CondoAddress, cls).validate(addresses)
+        super(Address, cls).validate(addresses)
         for address in addresses:
             address.validate_active()
 
