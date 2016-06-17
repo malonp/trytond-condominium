@@ -28,11 +28,10 @@ from trytond.transaction import Transaction
 
 
 __all__ = ['Party', 'PartyIdentifier']
-__metaclass__ = PoolMeta
 
 
 class Party:
-    'Condominium Party'
+    __metaclass__ = PoolMeta
     __name__ = 'party.party'
     units = fields.One2Many('condo.party', 'party', 'Units/Apartments')
 
@@ -89,7 +88,7 @@ class Party:
 
 
 class PartyIdentifier:
-    'Party Identifier'
+    __metaclass__ = PoolMeta
     __name__ = 'party.identifier'
 
     @classmethod

@@ -27,11 +27,10 @@ from trytond.transaction import Transaction
 
 
 __all__ = ['Address']
-__metaclass__ = PoolMeta
 
 
 class Address:
-    "Address"
+    __metaclass__ = PoolMeta
     __name__ = 'party.address'
 
     @classmethod

@@ -23,11 +23,10 @@ from trytond.pool import PoolMeta
 
 
 __all__ = ['ContactMechanism']
-__metaclass__ = PoolMeta
 
 
 class ContactMechanism:
-    "Contact Mechanism"
+    __metaclass__ = PoolMeta
     __name__ = 'party.contact_mechanism'
 
     @classmethod

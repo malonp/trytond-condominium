@@ -26,7 +26,7 @@ from .company import *
 from .condominium import *
 from .party import *
 from .contact_mechanism import *
-from report import *
+from .report import *
 
 
 def register():
