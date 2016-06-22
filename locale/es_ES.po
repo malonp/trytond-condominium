@@ -264,6 +264,10 @@ msgid "This party isn't active!"
 msgstr "Este tercero no está activo!"
 
 msgctxt "error:condo.party:"
+msgid "This role can not be change!"
+msgstr "No se puede cambiar esta funcion!"
+
+msgctxt "error:condo.party:"
 msgid "Set address or uncheck mail"
 msgstr "Introduzca dirección de correspondencia o desactive la casilla"
 

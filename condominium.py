@@ -26,7 +26,7 @@ from itertools import chain
 from trytond import backend
 from trytond.model import ModelView, ModelSQL, fields, Unique
 from trytond.pool import Pool
-from trytond.pyson import Eval, If, Not, Bool
+from trytond.pyson import Eval, If, Not, Bool, And
 from trytond.transaction import Transaction
 from trytond.wizard import Wizard, StateTransition, StateView, Button
 
@@ -87,7 +87,9 @@ class CondoParty(ModelSQL, ModelView):
             ('tenant', 'Tenant'),
             ], 'Role',
         depends=['active'], states={
-            'readonly': If(~Eval('active'), True, Eval('id', 0) > 0),
+            'readonly': If(~Eval('active'),
+                            True,
+                            And(Eval('role').in_(['owner', 'tenant']), Bool(Eval('id', 0) > 0))),
             })
     party = fields.Many2One('party.party', 'Party',
         depends=['active', 'id'], ondelete='CASCADE', required=True,
@@ -222,12 +224,25 @@ class CondoParty(ModelSQL, ModelView):
         super(CondoParty, cls).validate(condoparties)
         for condoparty in condoparties:
             condoparty.party_is_active()
+#            condoparty.change_role()
             condoparty.address_when_mail()
 
     def party_is_active(self):
         if not self.party.active and self.active:
             self.raise_user_error(
                 "This party isn't active!")
+
+    def change_role(self):
+        table = Pool().get('condo.party').__table__()
+        with Transaction().new_cursor(readonly=True):
+            cursor = Transaction().cursor
+            cursor.execute(*table.select(table.role,
+                         where=table.id == self.id))
+
+            role = cursor.fetchone()
+            if role and role[0] in [u'owner', u'tenant']:
+                self.raise_user_error(
+                    "This role can not be change!")
 
     def address_when_mail(self):
         #Constraint to set address if mail is true
