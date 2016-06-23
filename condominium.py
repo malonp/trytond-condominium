@@ -89,7 +89,7 @@ class CondoParty(ModelSQL, ModelView):
         depends=['active'], states={
             'readonly': If(~Eval('active'),
                             True,
-                            And(Eval('role').in_(['owner', 'tenant']), Bool(Eval('id', 0) > 0))),
+                            And(Bool(Eval('role')), Bool(Eval('id', 0) > 0))),
             })
     party = fields.Many2One('party.party', 'Party',
         depends=['active', 'id'], ondelete='CASCADE', required=True,
@@ -240,7 +240,7 @@ class CondoParty(ModelSQL, ModelView):
                          where=table.id == self.id))
 
             role = cursor.fetchone()
-            if role and role[0] in [u'owner', u'tenant']:
+            if role and bool(role[0]):
                 self.raise_user_error(
                     "This role can not be change!")
 
