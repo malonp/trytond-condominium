@@ -61,7 +61,7 @@ class Party:
                     [('name', '=', self.name), ('active', 'in', (True, False))])
                 if (parties_count > 1):
                     self.raise_user_warning('warn_party_with_same_name.%d' % self.id,
-                        'Party name already exists!', self.rec_name)
+                        'Party name "%s" already exists!', self.rec_name)
 
     def validate_active(self):
         #Deactivate party as unit owner on party deactivate

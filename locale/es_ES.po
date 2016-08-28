@@ -292,8 +292,8 @@ msgid "Party name should be stripped!"
 msgstr "No se permiten espacios antes y/o despues del nombre"
 
 msgctxt "error:party.party:"
-msgid "Party name already exists!"
-msgstr "Existe un tercero con el mismo nombre"
+msgid "Party name \"%s\" already exists!"
+msgstr "Existe un tercero con el mismo nombre \"%s\""
 
 msgctxt "error:party.party:"
 msgid "This party will be deactivate in %d unit(s)/apartment(s)!"
