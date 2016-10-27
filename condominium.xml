@@ -221,5 +221,71 @@ this repository contains the full copyright notices and license terms. -->
               sequence="30" action="act_condoparty_form"
               id="menu_condoparty_form" icon="condoparty"/>
 
+<!-- Access permissions -->
+
+        <record model="ir.model.access" id="access_condo_factor">
+            <field name="model" search="[('model', '=', 'condo.factor')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_condo_factor_admin">
+            <field name="model" search="[('model', '=', 'condo.factor')]"/>
+            <field name="group" ref="group_condominium_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access" id="access_condo_party">
+            <field name="model" search="[('model', '=', 'condo.party')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_condo_party_admin">
+            <field name="model" search="[('model', '=', 'condo.party')]"/>
+            <field name="group" ref="group_condominium_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access" id="access_condo_unit">
+            <field name="model" search="[('model', '=', 'condo.unit')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_condo_unit_admin">
+            <field name="model" search="[('model', '=', 'condo.unit')]"/>
+            <field name="group" ref="group_condominium_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access" id="access_condo_unit-factor">
+            <field name="model" search="[('model', '=', 'condo.unit-factor')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_condo_unit-factor_admin">
+            <field name="model" search="[('model', '=', 'condo.unit-factor')]"/>
+            <field name="group" ref="group_condominium_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
     </data>
 </tryton>
