@@ -271,6 +271,10 @@ msgctxt "error:condo.party:"
 msgid "Set address or uncheck mail"
 msgstr "Introduzca dirección de correspondencia o desactive la casilla"
 
+msgctxt "error:condo.party:"
+msgid "Set an active address or uncheck mail"
+msgstr "Introduzca una dirección de correspondencia activa o desactive la casilla"
+
 msgctxt "error:condo.unit:"
 msgid "The apartment/unit must be unique in each condominium!"
 msgstr "La denominación del inmueble debe ser unica"

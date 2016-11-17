@@ -101,7 +101,7 @@ class CondoParty(ModelSQL, ModelView):
             'readonly': ~Eval('active'),
             })
     address = fields.Many2One('party.address', 'Address', help="Mail address for this party",
-        depends=['active', 'mail', 'party'], domain=[('party', '=', Eval('party')),('active', '=', True)],
+        depends=['active', 'mail', 'party'], domain=[('party', '=', Eval('party'))],
         ondelete='SET NULL', states={
             'readonly': ~Eval('active'),
             'invisible': Not(Bool(Eval('mail')))
@@ -246,10 +246,13 @@ class CondoParty(ModelSQL, ModelView):
 
     def address_when_mail(self):
         #Constraint to set address if mail is true
-        if self.mail and not self.address:
-            self.raise_user_error(
-                "Set address or uncheck mail")
-
+        if self.active and self.mail:
+            if not self.address:
+                self.raise_user_error(
+                    "Set address or uncheck mail")
+            elif not self.address.active:
+                self.raise_user_error(
+                    "Set an active address or uncheck mail")
 
 class Unit(ModelSQL, ModelView):
     'Unit'
