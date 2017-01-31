@@ -230,6 +230,11 @@ msgid "OK"
 msgstr "Aceptar"
 
 
+msgctxt "model:res.group,name:group_condominium_admin"
+msgid "Condominium Administration"
+msgstr "Administración de Comunidades de Propietarios"
+
+
 msgctxt "model:ir.action,name:condoparty_addressing_small_envelopes"
 msgid "Addressing small envelopes"
 msgstr "Correspondencia sobres pequeños"
@@ -290,14 +295,6 @@ msgstr "El valor del coeficiente debe ser igual o mayor que 0"
 msgctxt "error:condo.unit-factor:"
 msgid "Sum of factor's units is bigger than factor's total"
 msgstr "La suma de coeficientes es superior al valor total para esta comunidad"
-
-msgctxt "error:party.party:"
-msgid "Party name should be stripped!"
-msgstr "No se permiten espacios antes y/o despues del nombre"
-
-msgctxt "error:party.party:"
-msgid "Party name \"%s\" already exists!"
-msgstr "Existe un tercero con el mismo nombre \"%s\""
 
 msgctxt "error:party.party:"
 msgid "This party will be deactivate in %d unit(s)/apartment(s)!"

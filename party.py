@@ -19,7 +19,6 @@
 #
 ##############################################################################
 
-import datetime
 
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
@@ -44,24 +43,7 @@ class Party:
     def validate(cls, parties):
         super(Party, cls).validate(parties)
         for party in parties:
-            party.validate_name()
             party.validate_active()
-
-    def validate_name(self):
-        #Warn on existing name and constraint non stripped names
-        if (self.id > 0):
-            if not (self.name == self.name.strip()):
-                self.raise_user_error(
-                    "Party name should be stripped!")
-            else:
-                parties = Pool().get('party.party')
-                #Must explicitly search on records with active=False
-                #otherwise only search on records with active=True
-                parties_count = parties.search_count(
-                    [('name', '=', self.name), ('active', 'in', (True, False))])
-                if (parties_count > 1):
-                    self.raise_user_warning('warn_party_with_same_name.%d' % self.id,
-                        'Party name "%s" already exists!', self.rec_name)
 
     def validate_active(self):
         #Deactivate party as unit owner on party deactivate
