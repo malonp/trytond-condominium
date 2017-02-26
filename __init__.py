@@ -25,7 +25,6 @@ from .address import *
 from .company import *
 from .condominium import *
 from .party import *
-from .contact_mechanism import *
 from .report import *
 
 
@@ -37,8 +36,6 @@ def register():
         Address,
         CondoFactors,
         Party,
-        PartyIdentifier,
-        ContactMechanism,
         UnitFactor,
         Company,
         module='condominium', type_='model')

@@ -33,11 +33,6 @@ class Address:
     __metaclass__ = PoolMeta
     __name__ = 'party.address'
 
-    @classmethod
-    def __setup__(cls):
-        super(Address, cls).__setup__()
-        cls._history = True
-
     def get_rec_name(self, name):
         return "; ".join(x for x in [self.name,
                 self.street, self.zip, self.city] if x)

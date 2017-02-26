@@ -23,7 +23,6 @@
 from decimal import Decimal
 from itertools import chain
 
-from trytond import backend
 from trytond.model import ModelView, ModelSQL, fields, Unique
 from trytond.pool import Pool
 from trytond.pyson import Eval, If, Not, Bool, And
@@ -55,7 +54,6 @@ class CondoFactors(ModelSQL, ModelView):
             ('condo_factors_uniq', Unique(t,t.company, t.name),
                 'This factor name is already in use!'),
         ]
-        cls._history = True
 
     @classmethod
     def validate(cls, factors):
@@ -122,20 +120,6 @@ class CondoParty(ModelSQL, ModelView):
             ('party_uniq', Unique(t,t.unit, t.party),
                 'Party must be unique in each apartment/unit!'),
         ]
-        cls._history = True
-
-    @classmethod
-    def __register__(cls, module_name):
-        TableHandler = backend.get('TableHandler')
-        cursor = Transaction().cursor
-        table = TableHandler(cursor, cls, module_name)
-
-        # Migration from 0.6:
-        #   - isactive renamed into active
-        if table.column_exist('isactive'):
-            table.column_rename('isactive', 'active')
-
-        super(CondoParty, cls).__register__(module_name)
 
     @staticmethod
     def default_mail():
@@ -295,7 +279,6 @@ class Unit(ModelSQL, ModelView):
             ('unit_unique', Unique(t,t.company, t.name),
                 'The apartment/unit must be unique in each condominium!'),
         ]
-        cls._history = True
 
     @staticmethod
     def order_company(tables):
@@ -328,7 +311,6 @@ class UnitFactor(ModelSQL, ModelView):
             ('unit_factor_uniq', Unique(t,t.unit, t.factor),
                 'This factor is already defined for this apartment/unit!'),
         ]
-        cls._history = True
 
     @classmethod
     def validate(cls, factors):
@@ -352,8 +334,6 @@ class UnitFactor(ModelSQL, ModelView):
 
         CondoFactors = Pool().get('condo.factor')
         condofactor = CondoFactors.search([('id', '=', self.factor.id),])
-#        print "Total Sum   " + self.factor.name + " :" + str(total)
-#        print "Total Condo " + self.factor.name + " :" + str(condofactor[0].total)
         if total > condofactor[0].total:
             self.raise_user_error(
                 "Sum of factor's units is bigger than factor's total")

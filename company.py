@@ -21,7 +21,7 @@
 
 
 from trytond.model import fields, Unique
-from trytond.pool import Pool, PoolMeta
+from trytond.pool import PoolMeta
 from trytond.pyson import Eval, Not, Bool
 
 
@@ -50,14 +50,6 @@ class Company:
             ('condo_company_uniq', Unique(t,t.party),
                 'This party is already used in another company!'),
         ]
-        cls._history = True
-
-    @staticmethod
-    def default_currency():
-        Currency = Pool().get('currency.currency')
-        euro = Currency.search([('code', '=', 'EUR')], limit=1)
-        if len(euro) and euro[0].id:
-            return euro[0].id
 
     @staticmethod
     def default_is_Condominium():

@@ -26,18 +26,13 @@ from trytond.tools import reduce_ids, grouped_slice
 from trytond.transaction import Transaction
 
 
-__all__ = ['Party', 'PartyIdentifier']
+__all__ = ['Party']
 
 
 class Party:
     __metaclass__ = PoolMeta
     __name__ = 'party.party'
     units = fields.One2Many('condo.party', 'party', 'Units/Apartments')
-
-    @classmethod
-    def __setup__(cls):
-        super(Party, cls).__setup__()
-        cls._history = True
 
     @classmethod
     def validate(cls, parties):
@@ -67,13 +62,3 @@ class Party:
                             columns=[condoparties.active],
                             values=[False],
                             where=red_sql))
-
-
-class PartyIdentifier:
-    __metaclass__ = PoolMeta
-    __name__ = 'party.identifier'
-
-    @classmethod
-    def __setup__(cls):
-        super(PartyIdentifier, cls).__setup__()
-        cls._history = True
