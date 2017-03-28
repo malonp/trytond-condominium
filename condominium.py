@@ -42,8 +42,9 @@ class CondoFactors(ModelSQL, ModelView):
         ondelete='CASCADE', required=True, select=True)
     name = fields.Char('Factor', help='Short name for this parameter',
         required=True)
-    total = fields.Numeric('Total', help='Sum of values for all the units/apartments in the condominium',
-        digits=(3, 5))
+    total = fields.Function(fields.Numeric('Total', help='Sum of values for all the units/apartments in the condominium',
+        digits=(3, 5)),
+        getter='get_total')
     notes = fields.Char('Description', help='Short description of this parameter')
 
     @classmethod
@@ -55,16 +56,8 @@ class CondoFactors(ModelSQL, ModelView):
                 'This factor name is already in use!'),
         ]
 
-    @classmethod
-    def validate(cls, factors):
-        super(CondoFactors, cls).validate(factors)
-        for factor in factors:
-            factor.bigger_or_equal_zero()
-
-    def bigger_or_equal_zero(self):
-        if self.total and (self.total < 0):
-            self.raise_user_error(
-                "The value must be equal or bigger than 0")
+    def get_total(self, name):
+        return sum( f.value for unit in self.company.condo_units for f in unit.factors if f.factor.id == self.id)
 
 
 class CondoParty(ModelSQL, ModelView):
@@ -317,26 +310,11 @@ class UnitFactor(ModelSQL, ModelView):
         super(UnitFactor, cls).validate(factors)
         for factor in factors:
             factor.bigger_or_equal_zero()
-            factor.validate_total_sum()
 
     def bigger_or_equal_zero(self):
         if self.value and (self.value < 0):
             self.raise_user_error(
                 "The value of factor must be equal or bigger than 0")
-
-    def validate_total_sum(self):
-        #Sum of factor's unit must be less than total's factor of condominium
-        UnitFactor = Pool().get('condo.unit-factor')
-        search_records = UnitFactor.search_read(
-            [('unit', 'in', self.unit.company.condo_units),
-            ('factor', '=', self.factor)],)
-        total = sum(x.get('value') for x in search_records if x.get('value'))
-
-        CondoFactors = Pool().get('condo.factor')
-        condofactor = CondoFactors.search([('id', '=', self.factor.id),])
-        if total > condofactor[0].total:
-            self.raise_user_error(
-                "Sum of factor's units is bigger than factor's total")
 
 
 class CheckAddressingList(ModelView):

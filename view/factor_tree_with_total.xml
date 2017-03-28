@@ -3,5 +3,6 @@
 this repository contains the full copyright notices and license terms. -->
 <tree string="Condominium Factors">
     <field name="name"/>
+    <field name="total"/>
     <field name="notes"/>
 </tree>

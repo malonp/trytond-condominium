@@ -12,8 +12,8 @@ this repository contains the full copyright notices and license terms. -->
                 view_ids="condominium.unit_view_tree_sequence"/>
         </page>
         <page string="Factors" id="condo_factors">
-            <field name="condo_factors" mode="tree" colspan="4"
-                view_ids="condominium.factor_view_tree"/>
+            <field name="condo_factors" mode="tree,form" colspan="4"
+                view_ids="condominium.factor_view_tree_with_total,condominium.factor_view_form"/>
         </page>
     </notebook>
 </form>
