@@ -69,26 +69,9 @@ msgctxt "field:condo.party,party:"
 msgid "Party"
 msgstr "Tercero"
 
-msgctxt "field:condo.party,mail:"
-msgid "Mail"
-msgstr "Correspondencia"
-
-msgctxt "field:condo.party,address:"
-msgid "Address"
-msgstr "Dirección"
-
 msgctxt "field:condo.party,active:"
 msgid "Active"
 msgstr "Activo"
-
-msgctxt "help:condo.party,mail:"
-msgid "Check if this party should receive mail"
-msgstr "Seleccionar si este tercero debe recibir correspondencia"
-
-msgctxt "help:condo.party,address:"
-msgid "Mail address for this party"
-msgstr "Dirección de envio de la correspondencia para este tercero"
-
 
 msgctxt "field:condo.unit,company:"
 msgid "Condominium"
@@ -122,15 +105,6 @@ msgstr "Valor"
 msgctxt "help:condo.unit-factor,value:"
 msgid "Value of factor for this unit/apartment"
 msgstr "Valor del coeficiente para este inmueble"
-
-
-msgctxt "field:condo.check_units_addressing.result,units_orphan:"
-msgid "Units without mail"
-msgstr "Inmuebles sin dirección de correo"
-
-msgctxt "field:condo.check_units_addressing.result,units_unsure:"
-msgid "Units to check"
-msgstr "Inmuebles a comprobar"
 
 
 msgctxt "field:party.party,units:"
@@ -170,10 +144,6 @@ msgctxt "view:condo.unit-factor:"
 msgid "Units/Apartments Factors"
 msgstr "Coeficientes de Inmueble"
 
-msgctxt "view:condo.check_units_addressing.result:"
-msgid "Check Units/Apartments mail address"
-msgstr "Comprobar dirección de correo de inmuebles"
-
 msgctxt "view:party.party:"
 msgid "Units/Apartments"
 msgstr "Inmuebles"
@@ -193,10 +163,6 @@ msgstr "Inmuebles"
 msgctxt "model:ir.action,name:act_unitfactor_form"
 msgid "Units Factors"
 msgstr "Coeficientes de inmueble"
-
-msgctxt "model:ir.action,name:wizard_check_units_addressing"
-msgid "Check Addressing List"
-msgstr "Comprobar direcciones correo"
 
 
 msgctxt "model:ir.ui.menu,name:menu_condominium"
@@ -225,32 +191,14 @@ msgid "Tenant"
 msgstr "Arrendatario"
 
 
-msgctxt "wizard_button:party.condo.check_units_addressing,result,end:"
-msgid "OK"
-msgstr "Aceptar"
-
-
 msgctxt "model:res.group,name:group_condominium_admin"
 msgid "Condominium Administration"
 msgstr "Administración de Comunidades de Propietarios"
 
 
-msgctxt "model:ir.action,name:condoparty_addressing_small_envelopes"
-msgid "Addressing small envelopes"
-msgstr "Correspondencia sobres pequeños"
-
-msgctxt "model:ir.action,name:condoparty_addressing_big_envelopes"
-msgid "Addressing big envelopes"
-msgstr "Correspondencia sobres grandes"
-
-
 msgctxt "error:company.company:"
 msgid "This party is already used in another company!"
 msgstr "Este tercero ya está definido como empresa"
-
-msgctxt "error:party.address:"
-msgid "This address will be deactivate as mail address in %d unit(s)/apartment(s)!"
-msgstr "Esta dirección será desactivada como destino de correspondencia en %d inmueble(s)!"
 
 msgctxt "error:condo.factor:"
 msgid "This factor name is already in use!"
@@ -271,14 +219,6 @@ msgstr "Este tercero no está activo!"
 msgctxt "error:condo.party:"
 msgid "This role can not be change!"
 msgstr "No se puede cambiar esta funcion!"
-
-msgctxt "error:condo.party:"
-msgid "Set address or uncheck mail"
-msgstr "Introduzca dirección de correspondencia o desactive la casilla"
-
-msgctxt "error:condo.party:"
-msgid "Set an active address or uncheck mail"
-msgstr "Introduzca una dirección de correspondencia activa o desactive la casilla"
 
 msgctxt "error:condo.unit:"
 msgid "The apartment/unit must be unique in each condominium!"

@@ -11,10 +11,4 @@ this repository contains the full copyright notices and license terms. -->
     <label name="active"/>
     <field name="active"
         xexpand="0" width="25"/>
-    <newline/>
-    <label name="mail"/>
-    <field name="mail"
-        xexpand="0" width="25"/>
-    <label name="address"/>
-    <field name="address" colspan="7"/>
 </form>

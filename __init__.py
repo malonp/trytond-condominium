@@ -21,27 +21,19 @@
 
 from trytond.pool import Pool
 
-from .address import *
+
 from .company import *
 from .condominium import *
 from .party import *
-from .report import *
 
 
 def register():
     Pool.register(
         Unit,
         CondoParty,
-        CheckAddressingList,
-        Address,
         CondoFactors,
         Party,
         UnitFactor,
         Company,
         module='condominium', type_='model')
-    Pool.register(
-        AddressList,
-        module='condominium', type_='report')
-    Pool.register(
-        CheckUnitMailAddress,
-        module='condominium', type_='wizard')
+

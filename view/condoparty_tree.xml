@@ -6,6 +6,5 @@ this repository contains the full copyright notices and license terms. -->
     <field name="unit_name"/>
     <field name="role"/>
     <field name="party"/>
-    <field name="address"/>
     <field name="active" tree_invisible="1"/>
 </tree>

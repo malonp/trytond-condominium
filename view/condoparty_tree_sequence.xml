@@ -4,5 +4,4 @@ this repository contains the full copyright notices and license terms. -->
 <tree string="Condo Parties"> 
     <field name="role"/>
     <field name="party"/>
-    <field name="address"/>
 </tree>

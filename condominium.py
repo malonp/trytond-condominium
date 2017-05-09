@@ -27,11 +27,10 @@ from trytond.model import ModelView, ModelSQL, fields, Unique
 from trytond.pool import Pool
 from trytond.pyson import Eval, If, Not, Bool, And
 from trytond.transaction import Transaction
-from trytond.wizard import Wizard, StateTransition, StateView, Button
 
 
 __all__ = ['CondoFactors', 'CondoParty', 'Unit', 'UnitFactor',
-    'CheckAddressingList', 'CheckUnitMailAddress']
+    ]
 
 
 class CondoFactors(ModelSQL, ModelView):
@@ -87,16 +86,6 @@ class CondoParty(ModelSQL, ModelView):
         select=True, states={
             'readonly': If(~Eval('active'), True, Eval('id', 0) > 0),
             })
-    mail = fields.Boolean('Mail', help="Check if this party should receive mail",
-        depends=['active'], states={
-            'readonly': ~Eval('active'),
-            })
-    address = fields.Many2One('party.address', 'Address', help="Mail address for this party",
-        depends=['active', 'mail', 'party'], domain=[('party', '=', Eval('party'))],
-        ondelete='SET NULL', states={
-            'readonly': ~Eval('active'),
-            'invisible': Not(Bool(Eval('mail')))
-            })
     # if the object has a field named 'active', trytond filter out all inactive (model/modelstorage.py)
     active = fields.Boolean('Active', select=True)
 
@@ -113,10 +102,6 @@ class CondoParty(ModelSQL, ModelView):
             ('party_uniq', Unique(t,t.unit, t.party),
                 'Party must be unique in each apartment/unit!'),
         ]
-
-    @staticmethod
-    def default_mail():
-        return True
 
     @staticmethod
     def default_active():
@@ -202,7 +187,6 @@ class CondoParty(ModelSQL, ModelView):
         for condoparty in condoparties:
             condoparty.party_is_active()
 #            condoparty.change_role()
-            condoparty.address_when_mail()
 
     def party_is_active(self):
         if not self.party.active and self.active:
@@ -221,15 +205,6 @@ class CondoParty(ModelSQL, ModelView):
                 self.raise_user_error(
                     "This role can not be change!")
 
-    def address_when_mail(self):
-        #Constraint to set address if mail is true
-        if self.active and self.mail:
-            if not self.address:
-                self.raise_user_error(
-                    "Set address or uncheck mail")
-            elif not self.address.active:
-                self.raise_user_error(
-                    "Set an active address or uncheck mail")
 
 class Unit(ModelSQL, ModelView):
     'Unit'
@@ -315,81 +290,3 @@ class UnitFactor(ModelSQL, ModelView):
         if self.value and (self.value < 0):
             self.raise_user_error(
                 "The value of factor must be equal or bigger than 0")
-
-
-class CheckAddressingList(ModelView):
-    'Check Addressing List'
-    __name__ = 'condo.check_units_addressing.result'
-    units_orphan = fields.Many2Many('condo.unit', None, None,
-        'Units without mail', readonly=True)
-    units_unsure = fields.Many2Many('condo.unit', None, None,
-        'Units to check', readonly=True)
-
-
-class CheckUnitMailAddress(Wizard):
-    'Check Addressing List'
-    __name__ = 'condo.check_units_addressing'
-    start_state = 'check'
-
-    check = StateTransition()
-    result = StateView('condo.check_units_addressing.result',
-        'condominium.check_units_addressing_result', [
-            Button('OK', 'end', 'tryton-ok', True),
-            ])
-
-    def transition_check(self):
-
-        pool = Pool()
-        CondoParty = pool.get('condo.party')
-        CondoUnit = pool.get('condo.unit')
-
-        units_succeed = []
-        units_failed = []
-
-        #All UNITS that BELONGS TO SELETED CONDOMINIUM and/or his childrens
-        units = CondoUnit.search_read([
-                    'OR', [
-                            ('company', 'in', Transaction().context.get('active_ids')),
-                        ],[
-                            ('company.parent', 'child_of', Transaction().context.get('active_ids')),
-                        ],
-                ], fields_names=['id'])
-
-        #All ACTIVE CONDOPARTIES of the unit refered above that HAVE MAIL DEFINED
-        condoparties = CondoParty.search([
-                ('unit', 'in', [ x['id'] for x in units ]),
-                ('mail', '=', True),
-                ('active', '=', True),
-                ], order=[('unit.company', 'ASC'), ('unit.name', 'ASC')])
-
-        #All UNITS WITH PARTIES THAT HAVE MAIL defined (in the unit itself or other selected units)
-        units_party_with_mail = CondoUnit.search_read([
-                    ('id', 'in', [ x['id'] for x in units ]),
-                    ('parties.party', 'in', [ x.party for x in condoparties ]),
-                ], fields_names=['id'])
-
-        units_condoparty_with_mail = CondoUnit.search_read([
-                    ('id', 'in', [ x['id'] for x in units ]),
-                    ('parties', 'in', [ x.id for x in condoparties ]),
-                ], fields_names=['id'])
-
-        units_orphan = []
-        units_unsure = []
-
-        units_orphaned_count = len(units) - len(units_party_with_mail)
-        if units_orphaned_count>0:
-            units_orphan = [obj['id'] for obj in units if obj not in units_party_with_mail]
-
-        units_unsure_count = len(units_party_with_mail) - len(units_condoparty_with_mail)
-        if units_unsure_count>0:
-            units_unsure = [obj['id'] for obj in units_party_with_mail if obj not in units_condoparty_with_mail]
-
-        self.result.units_orphan = units_orphan
-        self.result.units_unsure = units_unsure
-        return 'result'
-
-    def default_result(self, fields):
-        return {
-            'units_orphan': [p.id for p in self.result.units_orphan],
-            'units_unsure': [p.id for p in self.result.units_unsure],
-            }

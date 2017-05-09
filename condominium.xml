@@ -130,12 +130,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">unitfactor_tree</field>
         </record>
 
-        <record model="ir.ui.view" id="check_units_addressing_result">
-            <field name="model">condo.check_units_addressing.result</field>
-            <field name="type">form</field>
-            <field name="name">check_units_addressing_result</field>
-        </record>
-
 <!-- Actions -->
         <record model="ir.action.act_window" id="act_condo_form">
             <field name="name">Condominium</field>
@@ -204,18 +198,6 @@ this repository contains the full copyright notices and license terms. -->
           <field name="sequence" eval="20"/>
           <field name="view" ref="unitfactor_view_form"/>
           <field name="act_window" ref="act_unitfactor_form"/>
-        </record>
-
-        <record model="ir.action.wizard" id="wizard_check_units_addressing">
-            <field name="name">Check Addressing List</field>
-            <field name="wiz_name">condo.check_units_addressing</field>
-            <field name="model">company.company</field>
-        </record>
-
-        <record model="ir.action.keyword" id="check_units_addressing_keyword">
-            <field name="keyword">form_action</field>
-            <field name="model">company.company,-1</field>
-            <field name="action" ref="wizard_check_units_addressing"/>
         </record>
 
 <!-- Initial Menu -->
