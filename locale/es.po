@@ -73,6 +73,7 @@ msgctxt "field:condo.party,active:"
 msgid "Active"
 msgstr "Activo"
 
+
 msgctxt "field:condo.unit,company:"
 msgid "Condominium"
 msgstr "Com. de Propietarios"
@@ -189,6 +190,11 @@ msgstr "Propietario"
 msgctxt "selection:condo.party,role:"
 msgid "Tenant"
 msgstr "Arrendatario"
+
+
+msgctxt "wizard_button:party.condo.check_units_addressing,result,end:"
+msgid "OK"
+msgstr "Aceptar"
 
 
 msgctxt "model:res.group,name:group_condominium_admin"

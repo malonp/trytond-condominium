@@ -28,8 +28,7 @@ from trytond.pyson import Eval, Not, Bool
 __all__ = ['Company']
 
 
-class Company:
-    __metaclass__ = PoolMeta
+class Company(metaclass=PoolMeta):
     __name__ = 'company.company'
     is_Condominium = fields.Boolean('Condominium', help='Check if this company is a condominium',
             select=True)

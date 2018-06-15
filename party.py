@@ -29,8 +29,7 @@ from trytond.transaction import Transaction
 __all__ = ['Party']
 
 
-class Party:
-    __metaclass__ = PoolMeta
+class Party(metaclass=PoolMeta):
     __name__ = 'party.party'
     units = fields.One2Many('condo.party', 'party', 'Units/Apartments')
 
@@ -44,7 +43,7 @@ class Party:
         #Deactivate party as unit owner on party deactivate
         if (self.id > 0) and not self.active:
             condoparties = Pool().get('condo.party').__table__()
-            cursor = Transaction().cursor
+            cursor = Transaction().connection.cursor()
 
             cursor.execute(*condoparties.select(condoparties.id,
                                         where=(condoparties.party == self.id) &

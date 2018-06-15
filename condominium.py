@@ -196,7 +196,7 @@ class CondoParty(ModelSQL, ModelView):
     def change_role(self):
         table = Pool().get('condo.party').__table__()
         with Transaction().new_cursor(readonly=True):
-            cursor = Transaction().cursor
+            cursor = Transaction().connection.cursor()
             cursor.execute(*table.select(table.role,
                          where=table.id == self.id))
 
