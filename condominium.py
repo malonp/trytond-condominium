@@ -63,10 +63,8 @@ class CondoParty(ModelSQL, ModelView):
     'Condominium Party'
     __name__ = 'condo.party'
     unit = fields.Many2One('condo.unit', 'Unit',
-        depends=['active', 'id'], ondelete='CASCADE', required=True,
-        select=True, states={
-            'readonly': If(~Eval('active'), True, Eval('id', 0) > 0),
-            })
+        ondelete='CASCADE', required=True, select=True,
+        )
     company = fields.Function(fields.Many2One('company.company', 'Company'),
         getter='get_company', searcher='search_company')
     unit_name=fields.Function(fields.Char('Unit'),
@@ -76,18 +74,10 @@ class CondoParty(ModelSQL, ModelView):
             ('owner', 'Owner'),
             ('tenant', 'Tenant'),
             ], 'Role',
-        depends=['active'], states={
-            'readonly': If(~Eval('active'),
-                            True,
-                            And(Bool(Eval('role')), Bool(Eval('id', 0) > 0))),
-            })
+        )
     party = fields.Many2One('party.party', 'Party',
-        depends=['active', 'id'], ondelete='CASCADE', required=True,
-        select=True, states={
-            'readonly': If(~Eval('active'), True, Eval('id', 0) > 0),
-            })
-    # if the object has a field named 'active', trytond filter out all inactive (model/modelstorage.py)
-    active = fields.Boolean('Active', select=True)
+        ondelete='CASCADE', required=True, select=True,
+        )
 
     def get_rec_name(self, name):
         return ", ".join(x for x in [self.party.name,
@@ -102,10 +92,6 @@ class CondoParty(ModelSQL, ModelView):
             ('party_uniq', Unique(t,t.unit, t.party),
                 'Party must be unique in each apartment/unit!'),
         ]
-
-    @staticmethod
-    def default_active():
-        return True
 
     @classmethod
     def get_unit_name(cls, condoparties, name):
@@ -189,7 +175,7 @@ class CondoParty(ModelSQL, ModelView):
 #            condoparty.change_role()
 
     def party_is_active(self):
-        if not self.party.active and self.active:
+        if not self.party.active:
             self.raise_user_error(
                 "This party isn't active!")
 
