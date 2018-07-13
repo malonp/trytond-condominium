@@ -47,18 +47,15 @@ class Party:
             cursor = Transaction().cursor
 
             cursor.execute(*condoparties.select(condoparties.id,
-                                        where=(condoparties.party == self.id) &
-                                              (condoparties.active == True)))
+                                        where=(condoparties.party == self.id)))
 
             ids = [ids for (ids,) in cursor.fetchall()]
             if len(ids):
-                self.raise_user_warning('warn_deactive_condos_of_party.%d' % self.id,
-                    'This party will be deactivate in %d unit(s)/apartment(s)!', len(ids))
+                self.raise_user_warning('warn_delete_condos_of_party.%d' % self.id,
+                    'This party will be deleted in %d unit(s)/apartment(s)!', len(ids))
 
                 for sub_ids in grouped_slice(ids):
                     red_sql = reduce_ids(condoparties.id, sub_ids)
                     # Use SQL to prevent double validate loop
-                    cursor.execute(*condoparties.update(
-                            columns=[condoparties.active],
-                            values=[False],
+                    cursor.execute(*condoparties.delete(
                             where=red_sql))

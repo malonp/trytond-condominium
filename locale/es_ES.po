@@ -69,10 +69,6 @@ msgctxt "field:condo.party,party:"
 msgid "Party"
 msgstr "Tercero"
 
-msgctxt "field:condo.party,active:"
-msgid "Active"
-msgstr "Activo"
-
 msgctxt "field:condo.unit,company:"
 msgid "Condominium"
 msgstr "Com. de Propietarios"
@@ -233,5 +229,5 @@ msgid "The value of factor must be equal or bigger than 0"
 msgstr "El valor del coeficiente debe ser igual o mayor que 0"
 
 msgctxt "error:party.party:"
-msgid "This party will be deactivate in %d unit(s)/apartment(s)!"
-msgstr "Este tercero será desactivado en %d inmueble(s)"
+msgid "This party will be deleted in %d unit(s)/apartment(s)!"
+msgstr "Este tercero será retirado en %d inmueble(s)"
