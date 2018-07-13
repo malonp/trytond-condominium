@@ -74,7 +74,6 @@ class CondoParty(ModelSQL, ModelView):
             ('owner', 'Owner'),
             ('tenant', 'Tenant'),
             ], 'Role',
-        depends=['active'],
         )
     party = fields.Many2One('party.party', 'Party',
         ondelete='CASCADE', required=True, select=True,
