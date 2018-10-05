@@ -23,6 +23,8 @@
 from decimal import Decimal
 from itertools import chain
 
+from sql import Column
+
 from trytond.model import ModelView, ModelSQL, fields, Unique
 from trytond.pool import Pool
 from trytond.pyson import Eval, If, Not, Bool, And
@@ -115,8 +117,9 @@ class CondoParty(ModelSQL, ModelView):
 
     @classmethod
     def order_unit_name(cls, tables):
-        return chain.from_iterable([cls.unit.convert_order('unit', tables, cls),
-                cls.company.convert_order('company', tables, cls)])
+        return chain.from_iterable([ cls.unit.convert_order('unit.name', tables, cls),
+                                     cls.unit.convert_order('unit.company.party.name', tables, cls),
+                                   ])
 
     @classmethod
     def get_company(cls, condoparties, name):
@@ -147,25 +150,12 @@ class CondoParty(ModelSQL, ModelView):
 
         return [('id', 'in', query)]
 
-    @staticmethod
-    def order_company(tables):
-        pool = Pool()
-        Unit = pool.get('condo.unit')
+    @classmethod
+    def order_company(cls, tables):
+        return chain.from_iterable([ cls.unit.convert_order('unit.company.party.name', tables, cls),
+                                     cls.unit.convert_order('unit.name', tables, cls),
+                                   ])
 
-        field1 = Unit._fields['company']
-        field2 = Unit._fields['name']
-        table, _ = tables[None]
-        unit = Unit.__table__()
-
-        order_tables = tables.get('unit')
-        if order_tables is None:
-            order_tables = {
-                    None: (unit, unit.id == table.unit),
-                    }
-            tables['unit'] = order_tables
-            return chain.from_iterable([field1.convert_order('company', order_tables, Unit),
-                                        field2.convert_order('name', order_tables, Unit)])
-        return field1.convert_order('company', order_tables, Unit)
 
     @classmethod
     def validate(cls, condoparties):
@@ -234,15 +224,19 @@ class Unit(ModelSQL, ModelView):
                 'The apartment/unit must be unique in each condominium!'),
         ]
 
-    @staticmethod
-    def order_company(tables):
+    @classmethod
+    def order_company(cls, tables):
         table, _ = tables[None]
-        return [table.company, table.name]
+        return chain.from_iterable([ cls.company.convert_order('company.party.name', tables, cls),
+                                     [Column(table, 'name')],
+                                   ])
 
-    @staticmethod
-    def order_name(tables):
+    @classmethod
+    def order_name(cls, tables):
         table, _ = tables[None]
-        return [table.name, table.company]
+        return chain.from_iterable([ [Column(table, 'name')],
+                                     cls.company.convert_order('company.party.name', tables, cls),
+                                   ])
 
 
 class UnitFactor(ModelSQL, ModelView):
