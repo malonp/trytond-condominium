@@ -127,7 +127,7 @@ msgstr "Coeficientes de Comunidad"
 
 msgctxt "view:condo.party:"
 msgid "Condo Parties"
-msgstr "Partícipes"
+msgstr "Propietarios"
 
 msgctxt "view:condo.unit:"
 msgid "Units/Apartments"
@@ -135,7 +135,7 @@ msgstr "Inmuebles"
 
 msgctxt "view:condo.unit:"
 msgid "Parties"
-msgstr "Partícipes"
+msgstr "Terceros"
 
 msgctxt "view:condo.unit:"
 msgid "Factors"
@@ -155,7 +155,7 @@ msgstr "Comunidades de Propietarios"
 
 msgctxt "model:ir.action,name:act_condoparty_form"
 msgid "Condo Parties"
-msgstr "Partícipes"
+msgstr "Propietarios"
 
 msgctxt "model:ir.action,name:act_unit_form"
 msgid "Units"
@@ -180,7 +180,7 @@ msgstr "Inmuebles"
 
 msgctxt "model:ir.ui.menu,name:menu_condoparty_form"
 msgid "Condo Parties"
-msgstr "Partícipes"
+msgstr "Propietarios"
 
 
 msgctxt "selection:condo.party,role:"
