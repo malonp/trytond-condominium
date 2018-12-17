@@ -26,7 +26,7 @@ from trytond.tools import reduce_ids, grouped_slice
 from trytond.transaction import Transaction
 
 
-__all__ = ['Party']
+__all__ = ['Party', 'PartyReplace']
 
 
 class Party(metaclass=PoolMeta):
@@ -58,3 +58,13 @@ class Party(metaclass=PoolMeta):
                     # Use SQL to prevent double validate loop
                     cursor.execute(*condoparties.delete(
                             where=red_sql))
+
+
+class PartyReplace(metaclass=PoolMeta):
+    __name__ = 'party.replace'
+
+    @classmethod
+    def fields_to_replace(cls):
+        return super(PartyReplace, cls).fields_to_replace() + [
+            ('condo.party', 'party'),
+            ]

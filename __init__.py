@@ -36,4 +36,6 @@ def register():
         UnitFactor,
         Company,
         module='condominium', type_='model')
-
+    Pool.register(
+        PartyReplace,
+        module='condominium', type_='wizard')
