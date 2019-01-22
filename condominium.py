@@ -127,7 +127,7 @@ class CondoParty(ModelSQL, ModelView):
 
     @fields.depends('unit')
     def on_change_with_company(self):
-        if self.unit:
+        if self.unit and self.unit.company:
             return self.unit.company.id
 
     @classmethod
