@@ -41,7 +41,7 @@ class CondoFactors(ModelSQL, ModelView):
     company = fields.Many2One('company.company', 'Condominium',
         domain=[('is_Condominium', '=', True)],
         ondelete='CASCADE', required=True, select=True)
-    name = fields.Char('Factor', help='Short name for this parameter',
+    name = fields.Char('Name', help='Short name for this parameter',
         required=True)
     total = fields.Function(fields.Numeric('Total', help='Sum of values for all the units/apartments in the condominium',
         digits=(3, 5)),

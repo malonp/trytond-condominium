@@ -25,8 +25,8 @@ msgid "Condominium"
 msgstr "Com. de Propietarios"
 
 msgctxt "field:condo.factor,name:"
-msgid "Factor"
-msgstr "Coeficiente"
+msgid "Name"
+msgstr "Nombre"
 
 msgctxt "field:condo.factor,total:"
 msgid "Total"
