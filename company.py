@@ -30,24 +30,28 @@ __all__ = ['Company']
 
 class Company(metaclass=PoolMeta):
     __name__ = 'company.company'
-    is_Condominium = fields.Boolean('Condominium', help='Check if this company is a condominium',
-            select=True)
-    condo_units = fields.One2Many('condo.unit', 'company', 'Units/Apartments',
-        depends=['is_Condominium'], states={
-            'invisible': Not(Bool(Eval('is_Condominium')))
-            })
-    condo_factors = fields.One2Many('condo.factor', 'company', 'Factors',
-        depends=['is_Condominium'], states={
-            'invisible': Not(Bool(Eval('is_Condominium')))
-            })
+    is_Condominium = fields.Boolean('Condominium', help='Check if this company is a condominium', select=True)
+    condo_units = fields.One2Many(
+        'condo.unit',
+        'company',
+        'Units/Apartments',
+        depends=['is_Condominium'],
+        states={'invisible': Not(Bool(Eval('is_Condominium')))},
+    )
+    condo_factors = fields.One2Many(
+        'condo.factor',
+        'company',
+        'Factors',
+        depends=['is_Condominium'],
+        states={'invisible': Not(Bool(Eval('is_Condominium')))},
+    )
 
     @classmethod
     def __setup__(cls):
         super(Company, cls).__setup__()
         t = cls.__table__()
         cls._sql_constraints += [
-            ('condo_company_uniq', Unique(t,t.party),
-                'This party is already used in another company!'),
+            ('condo_company_uniq', Unique(t, t.party), 'This party is already used in another company!')
         ]
 
     @staticmethod
