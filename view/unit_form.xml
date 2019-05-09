@@ -11,8 +11,8 @@ this repository contains the full copyright notices and license terms. -->
     </group>
     <newline/>
     <notebook colspan="6">
-        <page string="Parties" id="unit_parties">
-            <field name="parties" mode="tree,form" colspan="4"
+        <page string="Parties" id="condoparties">
+            <field name="condoparties" mode="tree,form" colspan="4"
                 view_ids="condominium.condoparty_view_tree_sequence,condominium.condoparty_view_form"/>
         </page>
         <page string="Factors" id="unit_factors">

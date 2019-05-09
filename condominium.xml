@@ -134,7 +134,7 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.action.act_window" id="act_condo_form">
             <field name="name">Condominium</field>
             <field name="res_model">company.company</field>
-            <field name="domain" eval="[('is_Condominium', '=', True)]" pyson="1"/>
+            <field name="domain" eval="[('is_condo', '=', True)]" pyson="1"/>
         </record>
 
         <record model="ir.action.act_window.view" id="act_condo_form_view1">

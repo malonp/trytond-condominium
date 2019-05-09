@@ -6,8 +6,8 @@ this repository contains the full copyright notices and license terms. -->
         expr="/form/field[@name='timezone']"
         position="after">
         <newline/>
-        <label name="is_Condominium"/>
-        <field name="is_Condominium" xexpand="0" width="25"/>
+        <label name="is_condo"/>
+        <field name="is_condo" xexpand="0" width="25"/>
         <newline/>
     </xpath>
 </data>

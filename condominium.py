@@ -31,7 +31,7 @@ from trytond.pyson import Eval, If, Not, Bool, And
 from trytond.transaction import Transaction
 
 
-__all__ = ['CondoFactors', 'CondoParty', 'Unit', 'UnitFactor']
+__all__ = ['CondoFactors', 'CondoParty', 'Factor', 'Unit']
 
 
 class CondoFactors(ModelSQL, ModelView):
@@ -40,7 +40,7 @@ class CondoFactors(ModelSQL, ModelView):
     company = fields.Many2One(
         'company.company',
         'Condominium',
-        domain=[('is_Condominium', '=', True)],
+        domain=[('is_condo', '=', True)],
         ondelete='CASCADE',
         required=True,
         select=True,
@@ -57,11 +57,11 @@ class CondoFactors(ModelSQL, ModelView):
         super(CondoFactors, cls).__setup__()
         t = cls.__table__()
         cls._sql_constraints += [
-            ('condo_factors_uniq', Unique(t, t.company, t.name), 'This factor name is already in use!')
+            ('condofactors_uniq', Unique(t, t.company, t.name), 'This factor name is already in use!')
         ]
 
     def get_total(self, name):
-        return sum(f.value for unit in self.company.condo_units for f in unit.factors if f.factor.id == self.id)
+        return sum(f.value for unit in self.company.units for f in unit.factors if f.condofactor.id == self.id)
 
 
 class CondoParty(ModelSQL, ModelView):
@@ -181,14 +181,14 @@ class Unit(ModelSQL, ModelView):
     company = fields.Many2One(
         'company.company',
         'Condominium',
-        domain=[('is_Condominium', '=', True)],
+        domain=[('is_condo', '=', True)],
         ondelete='CASCADE',
         required=True,
         select=True,
         states={'readonly': Eval('id', 0) > 0},
     )
     name = fields.Char('Unit', size=12, states={'readonly': Eval('id', 0) > 0})
-    parties = fields.One2Many('condo.party', 'unit', 'Parties')
+    condoparties = fields.One2Many('condo.party', 'unit', 'Parties')
     factors = fields.One2Many('condo.unit-factor', 'unit', 'Factors')
 
     def get_rec_name(self, name):
@@ -227,15 +227,15 @@ class Unit(ModelSQL, ModelView):
         )
 
 
-class UnitFactor(ModelSQL, ModelView):
+class Factor(ModelSQL, ModelView):
     'Unit Factor'
     __name__ = 'condo.unit-factor'
     unit = fields.Many2One('condo.unit', 'Unit', ondelete='CASCADE', required=True, select=True)
-    factor = fields.Many2One(
+    condofactor = fields.Many2One(
         'condo.factor',
         'Factor',
         depends=['unit'],
-        domain=[('company.condo_units', '=', Eval('unit'))],
+        domain=[('company.units', '=', Eval('unit'))],
         ondelete='CASCADE',
         required=True,
         select=True,
@@ -244,16 +244,16 @@ class UnitFactor(ModelSQL, ModelView):
 
     @classmethod
     def __setup__(cls):
-        super(UnitFactor, cls).__setup__()
+        super(Factor, cls).__setup__()
         cls._order.insert(0, ('unit', 'ASC'))
         t = cls.__table__()
         cls._sql_constraints += [
-            ('unit_factor_uniq', Unique(t, t.unit, t.factor), 'This factor is already defined for this apartment/unit!')
+            ('factor_uniq', Unique(t, t.unit, t.condofactor), 'This factor is already defined for this apartment/unit!')
         ]
 
     @classmethod
     def validate(cls, factors):
-        super(UnitFactor, cls).validate(factors)
+        super(Factor, cls).validate(factors)
         for factor in factors:
             factor.bigger_or_equal_zero()
 

@@ -7,12 +7,12 @@ this repository contains the full copyright notices and license terms. -->
     <label name="parent"/>
     <field name="parent"/>
     <notebook colspan="6">
-        <page string="Units" id="condo_units">
-            <field name="condo_units" mode="tree" colspan="4"
+        <page string="Units" id="units">
+            <field name="units" mode="tree" colspan="4"
                 view_ids="condominium.unit_view_tree_sequence"/>
         </page>
-        <page string="Factors" id="condo_factors">
-            <field name="condo_factors" mode="tree,form" colspan="4"
+        <page string="Factors" id="condofactors">
+            <field name="condofactors" mode="tree,form" colspan="4"
                 view_ids="condominium.factor_view_tree_with_total,condominium.factor_view_form"/>
         </page>
     </notebook>
