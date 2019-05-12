@@ -26,7 +26,7 @@ from trytond.tools import reduce_ids, grouped_slice
 from trytond.transaction import Transaction
 
 
-__all__ = ['Party']
+__all__ = ['Party', 'PartyReplace']
 
 
 class Party(metaclass=PoolMeta):
@@ -40,21 +40,30 @@ class Party(metaclass=PoolMeta):
             party.validate_active()
 
     def validate_active(self):
-        #Deactivate party as unit owner on party deactivate
+        # Deactivate party as unit owner on party deactivate
         if (self.id > 0) and not self.active:
             condoparties = Pool().get('condo.party').__table__()
             cursor = Transaction().connection.cursor()
 
-            cursor.execute(*condoparties.select(condoparties.id,
-                                        where=(condoparties.party == self.id)))
+            cursor.execute(*condoparties.select(condoparties.id, where=(condoparties.party == self.id)))
 
             ids = [ids for (ids,) in cursor.fetchall()]
             if len(ids):
-                self.raise_user_warning('warn_delete_condos_of_party.%d' % self.id,
-                    'This party will be deleted in %d unit(s)/apartment(s)!', len(ids))
+                self.raise_user_warning(
+                    'warn_delete_condos_of_party.%d' % self.id,
+                    'This party will be deleted in %d unit(s)/apartment(s)!',
+                    len(ids),
+                )
 
                 for sub_ids in grouped_slice(ids):
                     red_sql = reduce_ids(condoparties.id, sub_ids)
                     # Use SQL to prevent double validate loop
-                    cursor.execute(*condoparties.delete(
-                            where=red_sql))
+                    cursor.execute(*condoparties.delete(where=red_sql))
+
+
+class PartyReplace(metaclass=PoolMeta):
+    __name__ = 'party.replace'
+
+    @classmethod
+    def fields_to_replace(cls):
+        return super(PartyReplace, cls).fields_to_replace() + [('condo.party', 'party')]

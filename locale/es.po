@@ -3,19 +3,19 @@ msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 
-msgctxt "field:company.company,is_Condominium:"
+msgctxt "field:company.company,is_condo:"
 msgid "Condominium"
 msgstr "Com. de Propietarios"
 
-msgctxt "field:company.company,condo_units:"
+msgctxt "field:company.company,units:"
 msgid "Units/Apartments"
 msgstr "Inmuebles"
 
-msgctxt "field:company.company,condo_factors:"
+msgctxt "field:company.company,condofactors:"
 msgid "Factors"
 msgstr "Coeficientes"
 
-msgctxt "help:company.company,is_Condominium:"
+msgctxt "help:company.company,is_condo:"
 msgid "Check if this company is a condominium"
 msgstr "Seleccionar si se trata de una Comunidad de Propietarios"
 
@@ -25,8 +25,8 @@ msgid "Condominium"
 msgstr "Com. de Propietarios"
 
 msgctxt "field:condo.factor,name:"
-msgid "Factor"
-msgstr "Coeficiente"
+msgid "Name"
+msgstr "Nombre"
 
 msgctxt "field:condo.factor,total:"
 msgid "Total"
@@ -82,7 +82,7 @@ msgctxt "field:condo.unit,name:"
 msgid "Unit"
 msgstr "Inmueble"
 
-msgctxt "field:condo.unit,parties:"
+msgctxt "field:condo.unit,condoparties:"
 msgid "Parties"
 msgstr "Terceros"
 
@@ -95,7 +95,7 @@ msgctxt "field:condo.unit-factor,unit:"
 msgid "Unit"
 msgstr "Inmueble"
 
-msgctxt "field:condo.unit-factor,factor:"
+msgctxt "field:condo.unit-factor,condofactor:"
 msgid "Factor"
 msgstr "Coeficiente"
 
@@ -127,7 +127,7 @@ msgstr "Coeficientes de Comunidad"
 
 msgctxt "view:condo.party:"
 msgid "Condo Parties"
-msgstr "Partícipes"
+msgstr "Propietarios"
 
 msgctxt "view:condo.unit:"
 msgid "Units/Apartments"
@@ -135,7 +135,7 @@ msgstr "Inmuebles"
 
 msgctxt "view:condo.unit:"
 msgid "Parties"
-msgstr "Partícipes"
+msgstr "Terceros"
 
 msgctxt "view:condo.unit:"
 msgid "Factors"
@@ -155,7 +155,7 @@ msgstr "Comunidades de Propietarios"
 
 msgctxt "model:ir.action,name:act_condoparty_form"
 msgid "Condo Parties"
-msgstr "Partícipes"
+msgstr "Propietarios"
 
 msgctxt "model:ir.action,name:act_unit_form"
 msgid "Units"
@@ -180,7 +180,7 @@ msgstr "Inmuebles"
 
 msgctxt "model:ir.ui.menu,name:menu_condoparty_form"
 msgid "Condo Parties"
-msgstr "Partícipes"
+msgstr "Propietarios"
 
 
 msgctxt "selection:condo.party,role:"

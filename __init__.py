@@ -28,12 +28,5 @@ from .party import *
 
 
 def register():
-    Pool.register(
-        Unit,
-        CondoParty,
-        CondoFactors,
-        Party,
-        UnitFactor,
-        Company,
-        module='condominium', type_='model')
-
+    Pool.register(Company, CondoFactors, CondoParty, Factor, Party, Unit, module='condominium', type_='model')
+    Pool.register(PartyReplace, module='condominium', type_='wizard')
