@@ -187,7 +187,7 @@ class Unit(ModelSQL, ModelView):
         select=True,
         states={'readonly': Eval('id', 0) > 0},
     )
-    name = fields.Char('Unit', size=12, states={'readonly': Eval('id', 0) > 0})
+    name = fields.Char('Unit', select=True, size=12, states={'readonly': Eval('id', 0) > 0})
     condoparties = fields.One2Many('condo.party', 'unit', 'Parties')
     factors = fields.One2Many('condo.unit-factor', 'unit', 'Factors')
 
