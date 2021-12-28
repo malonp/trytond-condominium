@@ -22,9 +22,8 @@
 
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
-from trytond.tools import reduce_ids, grouped_slice
+from trytond.tools import grouped_slice, reduce_ids
 from trytond.transaction import Transaction
-
 
 __all__ = ['Party', 'PartyReplace']
 

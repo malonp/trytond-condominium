@@ -21,7 +21,6 @@
 
 from trytond.pool import Pool
 
-
 from .company import *
 from .condominium import *
 from .party import *

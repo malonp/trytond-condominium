@@ -20,10 +20,9 @@
 ##############################################################################
 
 
-from trytond.model import fields, Unique
+from trytond.model import Unique, fields
 from trytond.pool import PoolMeta
-from trytond.pyson import Eval, Not, Bool
-
+from trytond.pyson import Bool, Eval, Not
 
 __all__ = ['Company']
 

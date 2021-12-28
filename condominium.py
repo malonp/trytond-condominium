@@ -24,12 +24,10 @@ from decimal import Decimal
 from itertools import chain
 
 from sql import Column
-
-from trytond.model import ModelView, ModelSQL, fields, Unique
+from trytond.model import ModelSQL, ModelView, Unique, fields
 from trytond.pool import Pool
-from trytond.pyson import Eval, If, Not, Bool, And
+from trytond.pyson import And, Bool, Eval, If, Not
 from trytond.transaction import Transaction
-
 
 __all__ = ['CondoFactors', 'CondoParty', 'Factor', 'Unit']
 
